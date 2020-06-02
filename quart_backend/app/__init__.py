@@ -22,6 +22,15 @@ def register_blueprints(app):
 def create_app(config_class=Config):
     app = Quart(__name__)
 
+    @app.before_request
+    async def connect_db():
+        await db.connect()
+
+    @app.after_request
+    async def disconnect_db(response):
+        await db.disconnect()
+        return response
+
     app.config.from_object(Config)
     register_blueprints(app)
     return app

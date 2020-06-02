@@ -4,6 +4,6 @@ from app.models import Car
 
 @base.route('/')
 async def index():
-    await Car.get_car_by_id(1)
+    data = await Car.get_car_by_id(1)
 
-    return "Hello"
+    return f"Hello, we have car {data[1]}"
