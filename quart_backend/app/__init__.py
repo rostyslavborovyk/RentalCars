@@ -2,13 +2,21 @@ from quart import Quart
 from app.config import Config
 from importlib import import_module
 from dotenv import load_dotenv
+from databases import Database
+import sqlalchemy
 
 load_dotenv()
+
+# "databases" engine to execute async queries
+db = Database(Config.SQLALCHEMY_DATABASE_URI)
+
+# "sqlalchemy" sync engine to create tables
+engine = sqlalchemy.create_engine(Config.SQLALCHEMY_DATABASE_URI)
 
 
 def register_blueprints(app):
     base = import_module("app.base.routes").base
-    app.register_blueprint(base)
+    app.register_blueprint(base, url_prefix="")
 
 
 def create_app(config_class=Config):
