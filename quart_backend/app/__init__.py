@@ -1,7 +1,7 @@
 import quart.flask_patch
 
 from quart import Quart
-from app.config import Development
+from quart_backend.app.config import Development
 from importlib import import_module
 from dotenv import load_dotenv
 from databases import Database
@@ -20,8 +20,8 @@ auth_manager = AuthManager()
 
 
 def register_blueprints(app):
-    base = import_module("app.base.routes").base
-    app.register_blueprint(base, url_prefix="")
+    base_bp = import_module("app.base.routes").bp
+    app.register_blueprint(base_bp, url_prefix="")
 
     api_bp = import_module("app.api").bp
     app.register_blueprint(api_bp, url_prefix='/api')

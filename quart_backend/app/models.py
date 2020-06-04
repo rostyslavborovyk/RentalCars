@@ -32,7 +32,16 @@ class Client(Base):
     last_name = Column(String(60))
     registration_date = Column(Date)  # datetime.date()
     passport_number = Column(String(60))
-    
+    hashed_password = Column(String(60))
+
+    @classmethod
+    async def add_client(cls, client):
+        await db.execute(query=insert(cls), values={
+            "first_name": client.first_name,
+            "last_name": client.last_name,
+            "registration_date": client.registration_date,
+            "passport_number": client.passport_number,
+        })
 
 
 class Order(Base):
@@ -44,6 +53,6 @@ class Order(Base):
     add_date = Column(Date)  # datetime.date()
     rental_time = Column(Integer)  # in days
 
-# todo add migrations
+
 # creates all tables
 # Base.metadata.create_all(engine)
