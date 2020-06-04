@@ -20,7 +20,7 @@ class Car(Base):
 
     @classmethod
     async def get_car_by_id(cls, id_):
-        data = await db.fetch_all(query=Select([Car]).where(Car.id == id_))
+        data = await db.fetch_all(query=Select([cls]).where(cls.id == id_))
         return data[0]
 
 
@@ -32,6 +32,7 @@ class Client(Base):
     last_name = Column(String(60))
     registration_date = Column(Date)  # datetime.date()
     passport_number = Column(String(60))
+    
 
 
 class Order(Base):
