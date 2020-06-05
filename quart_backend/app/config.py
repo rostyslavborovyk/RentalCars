@@ -19,3 +19,7 @@ class Development(Config):
 
 class Production(Config):
     JSON_AS_ASCII = False
+
+
+class Test(Config):
+    JSON_AS_ASCII = False

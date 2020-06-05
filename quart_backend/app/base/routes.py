@@ -11,10 +11,16 @@ from app.base import bp
 from app.models import Car, Client
 
 
-@bp.route('/', methods=["GET"])
-async def index():
-    data = await Car.select_car_by_id(1)
-    return f"Healthcheck\nWe have car {data[1]} in db"
+@bp.route('/healthcheck', methods=["GET"])
+async def test():
+    return "Ok"
+
+
+@bp.route('/db_healthcheck', methods=["GET"])
+async def test_db():
+    client = await Client.select_by_passport_number("qw23r")
+
+    return client.first_name
 
 
 @bp.route("/register", methods=["POST"])
@@ -67,6 +73,7 @@ def jwt_required(f):
         except Exception:
             return await make_response(jsonify({"status": "Invalid JWT"}), 400)
         return await f(*args, **kwargs)
+
     return decorated
 
 
