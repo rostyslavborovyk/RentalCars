@@ -5,7 +5,7 @@ from quart import request, jsonify, make_response, current_app
 from bcrypt import hashpw, gensalt, checkpw
 from pymysql.err import IntegrityError
 import jwt
-from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
+from jwt.exceptions import ExpiredSignatureError
 
 from app.base import bp
 from app.models import Car, Client
@@ -64,7 +64,7 @@ def jwt_required(f):
             jwt.decode(request.headers["x-access-token"], current_app.config["SECRET_KEY"])
         except ExpiredSignatureError:
             return await make_response(jsonify({"status": "JWT has expired"}), 401)
-        except InvalidSignatureError:
+        except Exception:
             return await make_response(jsonify({"status": "Invalid JWT"}), 400)
         return await f(*args, **kwargs)
     return decorated

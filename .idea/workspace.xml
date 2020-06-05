@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="397f4c62-fa52-4f5b-a5d1-2a5244111103" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quart_backend/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quart_backend/app/base/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/base/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quart_backend/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quart_backend/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quart_backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quart_backend/app/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/api/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +156,7 @@
       <workItem from="1591217543482" duration="666000" />
       <workItem from="1591259266609" duration="12752000" />
       <workItem from="1591285219156" duration="4405000" />
-      <workItem from="1591346511810" duration="11848000" />
+      <workItem from="1591346511810" duration="12071000" />
     </task>
     <servers />
   </component>
