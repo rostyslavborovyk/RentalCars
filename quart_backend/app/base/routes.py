@@ -33,7 +33,7 @@ async def register():
     try:
         await Client.insert_client(client)
     except IntegrityError:
-        return await make_response(jsonify({"status": "Such passport_number already exists"}), 400)
+        return await make_response(jsonify({"status": "Such passport_number or id already exists"}), 400)
     return await make_response(jsonify({"status": "Ok"}), 200)
 
 

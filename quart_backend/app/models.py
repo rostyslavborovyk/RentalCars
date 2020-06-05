@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
 from sqlalchemy import update, insert
 from sqlalchemy.sql.selectable import Select
+from uuid import uuid4
 
 Base = declarative_base()
 
@@ -14,7 +15,7 @@ class TableMixin:
 class Car(Base):
     __tablename__ = 'cars'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String(32), primary_key=True)
     description = Column(String(60))
     cost = Column(Float)
 
@@ -26,7 +27,7 @@ class Car(Base):
 class Client(Base):
     __tablename__ = 'clients'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String(32), primary_key=True)
     first_name = Column(String(60))
     last_name = Column(String(60))
     registration_date = Column(Date)  # datetime.date()
@@ -36,6 +37,7 @@ class Client(Base):
     @classmethod
     async def insert_client(cls, client):
         await db.execute(query=insert(cls), values={
+            "id": uuid4().hex,
             "first_name": client.first_name,
             "last_name": client.last_name,
             "registration_date": client.registration_date,
@@ -51,9 +53,9 @@ class Client(Base):
 class Order(Base):
     __tablename__ = 'orders'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    id_client = Column(Integer, ForeignKey("clients.id"), nullable=False)
-    id_car = Column(Integer, ForeignKey("cars.id"), nullable=False)
+    id = Column(String(32), primary_key=True)
+    id_client = Column(String(32), ForeignKey("clients.id"), nullable=False)
+    id_car = Column(String(32), ForeignKey("cars.id"), nullable=False)
     add_date = Column(Date)  # datetime.date()
     rental_time = Column(Integer)  # in days
 
