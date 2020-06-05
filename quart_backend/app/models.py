@@ -19,9 +19,8 @@ class Car(Base):
     cost = Column(Float)
 
     @classmethod
-    async def get_car_by_id(cls, id_):
-        data = await db.fetch_all(query=Select([cls]).where(cls.id == id_))
-        return data[0]
+    async def select_car_by_id(cls, id_):
+        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
 
 class Client(Base):
@@ -31,17 +30,22 @@ class Client(Base):
     first_name = Column(String(60))
     last_name = Column(String(60))
     registration_date = Column(Date)  # datetime.date()
-    passport_number = Column(String(60))
+    passport_number = Column(String(60), unique=True)
     hashed_password = Column(String(60))
 
     @classmethod
-    async def add_client(cls, client):
+    async def insert_client(cls, client):
         await db.execute(query=insert(cls), values={
             "first_name": client.first_name,
             "last_name": client.last_name,
             "registration_date": client.registration_date,
             "passport_number": client.passport_number,
+            "hashed_password": client.hashed_password
         })
+
+    @classmethod
+    async def select_by_passport_number(cls, number):
+        return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
 
 class Order(Base):
@@ -54,5 +58,6 @@ class Order(Base):
     rental_time = Column(Integer)  # in days
 
 
+# deprecated, use alembic migrations
 # creates all tables
 # Base.metadata.create_all(engine)

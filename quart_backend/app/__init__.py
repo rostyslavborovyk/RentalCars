@@ -1,12 +1,16 @@
 import quart.flask_patch
-
 from quart import Quart
-from quart_backend.app.config import Development
 from importlib import import_module
 from dotenv import load_dotenv
 from databases import Database
 import sqlalchemy
 from quart_auth import AuthManager
+
+# one import for running alembic commands, other for running app
+try:
+    from app.config import Development
+except ModuleNotFoundError:
+    from quart_backend.app.config import Development
 
 load_dotenv()
 
@@ -28,7 +32,6 @@ def register_blueprints(app):
 
 
 def create_app(config_class=Development):
-    # app = Quart(__name__)
     app = Quart(__name__)
 
     @app.before_request
