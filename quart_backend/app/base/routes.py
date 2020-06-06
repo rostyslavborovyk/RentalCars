@@ -12,7 +12,7 @@ from app.models import Car, Client
 
 
 @bp.route('/healthcheck', methods=["GET"])
-async def test():
+async def test_empty():
     return "Ok"
 
 
@@ -63,6 +63,7 @@ async def login():
 
 
 def jwt_required(f):
+    @wraps(f)
     async def decorated(*args, **kwargs):
         if "x-access-token" not in request.headers:
             return await make_response(jsonify({"status": "JWT required"}), 400)
