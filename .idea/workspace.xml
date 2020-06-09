@@ -5,7 +5,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/RentalCars.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RentalCars.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/quart_backend/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/app/config.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/create_venv.sh" beforeDir="false" afterPath="$PROJECT_DIR$/create_venv.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quart_backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/quart_backend/requirements.txt" afterDir="false" />
+>>>>>>> 268b369ba73a8889b90587052ce4d578233dd8cd
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
