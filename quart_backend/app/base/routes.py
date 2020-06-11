@@ -45,6 +45,10 @@ async def register():
 
 @bp.route("/login", methods=["GET"])
 async def login():
+    """
+    Gets the fields 'passport_number' and 'password' from header. If it corresponds to some user
+    returns the jwt.
+    """
     headers = request.headers
     if "passport_number" not in headers or "password" not in headers:
         return await make_response(jsonify({"status": "Set passport_number and password"}), 400)
@@ -74,11 +78,10 @@ def jwt_required(f):
         except Exception:
             return await make_response(jsonify({"status": "Invalid JWT"}), 400)
         return await f(*args, **kwargs)
-
     return decorated
 
 
-@bp.route("/test", methods=["GET"])
+@bp.route("/jwt_check", methods=["GET"])
 @jwt_required
 async def test():
     return "Ok"
