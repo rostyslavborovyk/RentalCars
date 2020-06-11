@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "rental_cars_backend"
+version = "0.1.0"
+description = ""
+authors = ["rostislav <rostmoguchiy@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+quart = "^0.12.0"
+databases = "^0.3.2"
+alembic = "^1.4.2"
+mysqlclient = "^1.4.6"
+PyJWT = "^1.7.1"
+pytest = "^5.4.3"
+pytest-asyncio = "^0.12.0"
+python-dotenv = "^0.13.0"
+quart-auth = "^0.3.0"
+aiomysql = "^0.0.20"
+bcrypt = "^3.1.7"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
