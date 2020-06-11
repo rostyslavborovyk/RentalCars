@@ -1,6 +1,6 @@
 from quart import Blueprint
 
-base = Blueprint(
+bp = Blueprint(
     'base',
     __name__,
     url_prefix='',
