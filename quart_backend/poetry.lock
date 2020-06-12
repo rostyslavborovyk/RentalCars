@@ -456,17 +456,6 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
-description = "A Quart extension to provide secure cookie authentication"
-name = "quart-auth"
-optional = false
-python-versions = ">=3.7"
-version = "0.3.0"
-
-[package.dependencies]
-quart = ">=0.11"
-
-[[package]]
-category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -554,7 +543,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "bf3f353bc006567bdcc070fe883e1d18e0a1dfa89c029be6a03bb66bd1b93fea"
+content-hash = "c91b383544edf5bbf080ca5674ba8e19085463db636269d59893065f9c93af4f"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -801,10 +790,6 @@ python-editor = [
 quart = [
     {file = "Quart-0.12.0-py3-none-any.whl", hash = "sha256:f706e6eff0ef756b88d9965359f7445c9c2773551dca822deb8c018c58c00902"},
     {file = "Quart-0.12.0.tar.gz", hash = "sha256:99a65bc90d0e1260c9cc9a7dd0b8523eb6cd9f4ec146e771e98a55ee180ae6c2"},
-]
-quart-auth = [
-    {file = "quart-auth-0.3.0.tar.gz", hash = "sha256:fecd762175313c96b6710857829feda522ab6ac96ecbad0a65ee18794891075f"},
-    {file = "quart_auth-0.3.0-py3-none-any.whl", hash = "sha256:638c22d67dc27eaa11edcd63a8cc17812a551f4dc61d8056335dd75ab127cb5d"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
