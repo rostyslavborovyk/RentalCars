@@ -9,6 +9,7 @@ from jwt.exceptions import ExpiredSignatureError
 
 from app.base import bp
 from app.models import Car, Client
+from json import loads
 
 
 @bp.route('/healthcheck', methods=["GET"])
@@ -26,9 +27,11 @@ async def test_db():
 @bp.route("/register", methods=["POST"])
 async def register():
     params = await request.get_json()
+    if params is None:
+        data = await request.data
+        params = loads(data.decode("utf-8"))
 
     hashed_password = hashpw(str(params["password"]).encode("utf-8"), gensalt())
-
     client = Client(
         first_name=params["first_name"],
         last_name=params["last_name"],

@@ -36,7 +36,11 @@ def create_app(config_class=Development):
 
     @app.before_request
     async def connect_db():
-        await db.connect()
+        # todo: replace Exception with AlreadyConnectedToDbException
+        try:
+            await db.connect()
+        except Exception:
+            pass
 
     @app.after_request
     async def disconnect_db(response):
