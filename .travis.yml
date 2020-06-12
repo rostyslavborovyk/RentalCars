@@ -6,3 +6,9 @@ python:
 
 before_install:
   - pip install poetry
+
+install:
+  - poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+
+script:
+  - pytest
