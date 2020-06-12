@@ -9,7 +9,7 @@ COPY . /usr/src/app
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
-EXPOSE 5000
+EXPOSE 8000
 
 # running tests
 RUN pytest
