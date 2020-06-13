@@ -4,7 +4,7 @@ from importlib import import_module
 from dotenv import load_dotenv
 from databases import Database
 import sqlalchemy
-# from quart_auth import AuthManager
+from quart_cors import cors
 
 # one import for running alembic commands, other for running app
 try:
@@ -19,8 +19,6 @@ db = Database(Development.SQLALCHEMY_DATABASE_URI)
 
 # "sqlalchemy" sync engine to create tables
 engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
-
-# auth_manager = AuthManager()
 
 
 def register_blueprints(app):
@@ -50,5 +48,5 @@ def create_app(config_class=Development):
     app.config.from_object(Development)
     register_blueprints(app)
 
-    # auth_manager.init_app(app)
+    app = cors(app)
     return app

@@ -11,6 +11,7 @@ class Config:
     TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SESSION_DURATION = 1  # in minutes
+    QUART_CORS_ALLOW_ORIGIN = "*"  # todo: replace it with corresponding host
 
 
 class Development(Config):
