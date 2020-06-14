@@ -26,6 +26,7 @@ class Car(Base):
 
     @classmethod
     async def select_for_cars_table(cls):
+        # todo: add pagination
         query = "SELECT ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
                 "FROM cars as ca " \
                 "LEFT JOIN orders as ord on ca.id = ord.id_car " \
@@ -60,6 +61,7 @@ class Client(Base):
 
     @classmethod
     async def select_for_clients_table(cls):
+        # todo: add pagination
         query = "SELECT cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
                 "FROM clients as cl " \
                 "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
@@ -78,6 +80,7 @@ class Order(Base):
 
     @classmethod
     async def select_for_orders_table(cls):
+        # todo: add pagination
         query = "SELECT ca.id, cl.passport_number, ord.add_date," \
                 "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
                 "FROM clients as cl " \
