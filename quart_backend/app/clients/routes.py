@@ -12,6 +12,7 @@ async def check():
 @bp.route("/clients_table", methods=["GET"])
 async def clients_table():
     data = await Client.select_for_clients_table()
+
     response_arr = []
     for i in range(len(data)):
         obj = dict()

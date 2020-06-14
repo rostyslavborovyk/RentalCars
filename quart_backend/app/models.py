@@ -24,6 +24,14 @@ class Car(Base):
     async def select_car_by_id(cls, id_: str):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
+    @classmethod
+    async def select_for_cars_table(cls):
+        query = "SELECT ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
+                "FROM cars as ca " \
+                "LEFT JOIN orders as ord on ca.id = ord.id_car " \
+                "GROUP BY ca.id"
+        return await db.fetch_all(query=query)
+
 
 class Client(Base):
     __tablename__ = 'clients'
@@ -56,9 +64,7 @@ class Client(Base):
                 "FROM clients as cl " \
                 "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
                 "GROUP BY cl.id"
-        return await db.fetch_all(
-            query=query
-        )
+        return await db.fetch_all(query=query)
 
 
 class Order(Base):
@@ -73,13 +79,11 @@ class Order(Base):
     @classmethod
     async def select_for_orders_table(cls):
         query = "SELECT ca.id, cl.passport_number, ord.add_date," \
-                " ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
+                "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
                 "FROM clients as cl " \
                 "INNER JOIN orders as ord ON cl.id = ord.id_client " \
                 "INNER JOIN cars as ca ON ord.id_car = ca.id"
-        return await db.fetch_all(
-            query=query
-        )
+        return await db.fetch_all(query=query)
 
 # deprecated, use alembic migrations
 # creates all tables
