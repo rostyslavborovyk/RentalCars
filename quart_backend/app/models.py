@@ -50,6 +50,16 @@ class Client(Base):
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
+
+class Order(Base):
+    __tablename__ = 'orders'
+
+    id = Column(String(32), primary_key=True)
+    id_client = Column(String(32), ForeignKey("clients.id"), nullable=False)
+    id_car = Column(String(32), ForeignKey("cars.id"), nullable=False)
+    add_date = Column(Date)  # datetime.date()
+    rental_time = Column(Integer)  # in days
+
     @classmethod
     async def select_for_orders_table(cls):
         query = "SELECT ca.id, cl.passport_number, ord.add_date," \
@@ -60,16 +70,6 @@ class Client(Base):
         return await db.fetch_all(
             query=query
         )
-
-
-class Order(Base):
-    __tablename__ = 'orders'
-
-    id = Column(String(32), primary_key=True)
-    id_client = Column(String(32), ForeignKey("clients.id"), nullable=False)
-    id_car = Column(String(32), ForeignKey("cars.id"), nullable=False)
-    add_date = Column(Date)  # datetime.date()
-    rental_time = Column(Integer)  # in days
 
 # deprecated, use alembic migrations
 # creates all tables

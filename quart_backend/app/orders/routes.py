@@ -11,7 +11,7 @@ async def check():
 
 @bp.route("/orders_table", methods=["GET"])
 async def orders_table():
-    data = await Client.select_for_orders_table()
+    data = await Order.select_for_orders_table()
 
     response_arr = []
     for i in range(len(data)):
