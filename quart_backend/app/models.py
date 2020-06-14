@@ -1,7 +1,7 @@
 from app import db, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
-from sqlalchemy import update, insert
+from sqlalchemy import update, insert, join
 from sqlalchemy.sql.selectable import Select
 from uuid import uuid4
 
@@ -52,7 +52,14 @@ class Client(Base):
 
     @classmethod
     async def select_for_orders_table(cls):
-        pass
+        query = "SELECT ca.id, cl.passport_number, ord.add_date," \
+                " ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
+                "FROM clients as cl " \
+                "INNER JOIN orders as ord ON cl.id = ord.id_client " \
+                "INNER JOIN cars as ca ON ord.id_car = ca.id"
+        return await db.fetch_all(
+            query=query
+        )
 
 
 class Order(Base):
