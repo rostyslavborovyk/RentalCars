@@ -50,6 +50,10 @@ class Client(Base):
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
+    @classmethod
+    async def select_for_orders_table(cls):
+        pass
+
 
 class Order(Base):
     __tablename__ = 'orders'

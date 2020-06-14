@@ -22,11 +22,20 @@ engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
 
 
 def register_blueprints(app: Quart) -> None:
-    base_bp = import_module("app.base.routes").bp
-    app.register_blueprint(base_bp, url_prefix="")
+    base_bp = import_module("app.base").bp
+    app.register_blueprint(base_bp)
 
     api_bp = import_module("app.api").bp
-    app.register_blueprint(api_bp, url_prefix='/api')
+    app.register_blueprint(api_bp)
+
+    clients_bp = import_module("app.clients").bp
+    app.register_blueprint(clients_bp)
+
+    orders_bp = import_module("app.orders").bp
+    app.register_blueprint(orders_bp)
+
+    cars_bp = import_module("app.cars").bp
+    app.register_blueprint(cars_bp)
 
 
 def create_app(config_class=Development) -> Quart:
