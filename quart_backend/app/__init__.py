@@ -21,7 +21,7 @@ db = Database(Development.SQLALCHEMY_DATABASE_URI)
 engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
 
 
-def register_blueprints(app):
+def register_blueprints(app: Quart) -> None:
     base_bp = import_module("app.base.routes").bp
     app.register_blueprint(base_bp, url_prefix="")
 
@@ -29,11 +29,11 @@ def register_blueprints(app):
     app.register_blueprint(api_bp, url_prefix='/api')
 
 
-def create_app(config_class=Development):
+def create_app(config_class=Development) -> Quart:
     app = Quart(__name__)
 
     @app.before_request
-    async def connect_db():
+    async def connect_db() -> None:
         # todo: replace Exception with AlreadyConnectedToDbException
         try:
             await db.connect()
@@ -41,7 +41,7 @@ def create_app(config_class=Development):
             pass
 
     @app.after_request
-    async def disconnect_db(response):
+    async def disconnect_db(response) -> None:
         await db.disconnect()
         return response
 

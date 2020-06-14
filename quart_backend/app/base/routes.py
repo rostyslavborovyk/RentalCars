@@ -14,12 +14,12 @@ from json import loads
 
 
 @bp.route('/healthcheck', methods=["GET"])
-async def test_empty():
+async def test_empty() -> str:
     return "Ok"
 
 
 @bp.route('/db_healthcheck', methods=["GET"])
-async def test_db():
+async def test_db() -> str:
     client = await Client.select_by_passport_number("qw23r")
 
     return client.first_name

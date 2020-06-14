@@ -8,6 +8,7 @@ from uuid import uuid4
 Base = declarative_base()
 
 
+# todo implement __repr__ and add to models
 class TableMixin:
     pass
 
@@ -20,7 +21,7 @@ class Car(Base):
     cost = Column(Float)
 
     @classmethod
-    async def select_car_by_id(cls, id_):
+    async def select_car_by_id(cls, id_: str):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
 
@@ -35,7 +36,7 @@ class Client(Base):
     hashed_password = Column(String(60))
 
     @classmethod
-    async def insert_client(cls, client):
+    async def insert_client(cls, client) -> None:
         await db.execute(query=insert(cls), values={
             "id": uuid4().hex,
             "first_name": client.first_name,
@@ -46,7 +47,7 @@ class Client(Base):
         })
 
     @classmethod
-    async def select_by_passport_number(cls, number):
+    async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
 
@@ -58,7 +59,6 @@ class Order(Base):
     id_car = Column(String(32), ForeignKey("cars.id"), nullable=False)
     add_date = Column(Date)  # datetime.date()
     rental_time = Column(Integer)  # in days
-
 
 # deprecated, use alembic migrations
 # creates all tables
