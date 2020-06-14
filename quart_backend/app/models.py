@@ -50,6 +50,16 @@ class Client(Base):
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
+    @classmethod
+    async def select_for_clients_table(cls):
+        query = "SELECT cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
+                "FROM clients as cl " \
+                "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
+                "GROUP BY cl.id"
+        return await db.fetch_all(
+            query=query
+        )
+
 
 class Order(Base):
     __tablename__ = 'orders'
