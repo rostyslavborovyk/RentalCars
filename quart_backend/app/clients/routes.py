@@ -24,8 +24,6 @@ async def clients_table():
         print(e)
         return await make_response(jsonify({"status": "db error occurred, check query params"}), 500)
 
-    # data = await Client.select_for_clients_table()
-
     response_arr = []
     for i in range(len(data)):
         obj = dict()

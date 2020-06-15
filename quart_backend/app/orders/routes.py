@@ -20,7 +20,8 @@ async def orders_table():
             num_of_items=num_of_items,
             offset=offset
         )
-    except Exception:
+    except Exception as e:
+        print(e)
         return await make_response(jsonify({"status": "db error occurred, check query params"}), 500)
 
     response_arr = []

@@ -25,12 +25,13 @@ class Car(Base):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
     @classmethod
-    async def select_for_cars_table(cls):
-        # todo: add pagination
+    async def select_for_cars_table(cls, num_of_items: str, offset: str):
         query = "SELECT ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
                 "FROM cars as ca " \
                 "LEFT JOIN orders as ord on ca.id = ord.id_car " \
-                "GROUP BY ca.id"
+                "GROUP BY ca.id " \
+                f"LIMIT {num_of_items} " \
+                f"OFFSET {offset}"
         return await db.fetch_all(query=query)
 
 
@@ -61,7 +62,6 @@ class Client(Base):
 
     @classmethod
     async def select_for_clients_table(cls, num_of_items: str, offset: str):
-        # todo: add pagination
         query = "SELECT cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
                 "FROM clients as cl " \
                 "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
