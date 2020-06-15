@@ -16,6 +16,7 @@ pytest-asyncio = "^0.12.0"
 python-dotenv = "^0.13.0"
 aiomysql = "^0.0.20"
 bcrypt = "^3.1.7"
+Quart-CORS = "^0.3.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,13 +1,14 @@
 from app import db, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
-from sqlalchemy import update, insert
+from sqlalchemy import update, insert, join
 from sqlalchemy.sql.selectable import Select
 from uuid import uuid4
 
 Base = declarative_base()
 
 
+# todo implement __repr__ and add to models
 class TableMixin:
     pass
 
@@ -20,8 +21,18 @@ class Car(Base):
     cost = Column(Float)
 
     @classmethod
-    async def select_car_by_id(cls, id_):
+    async def select_car_by_id(cls, id_: str):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
+
+    @classmethod
+    async def select_for_cars_table(cls, num_of_items: str, offset: str):
+        query = "SELECT ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
+                "FROM cars as ca " \
+                "LEFT JOIN orders as ord on ca.id = ord.id_car " \
+                "GROUP BY ca.id " \
+                f"LIMIT {num_of_items} " \
+                f"OFFSET {offset}"
+        return await db.fetch_all(query=query)
 
 
 class Client(Base):
@@ -35,7 +46,7 @@ class Client(Base):
     hashed_password = Column(String(60))
 
     @classmethod
-    async def insert_client(cls, client):
+    async def insert_client(cls, client) -> None:
         await db.execute(query=insert(cls), values={
             "id": uuid4().hex,
             "first_name": client.first_name,
@@ -46,8 +57,18 @@ class Client(Base):
         })
 
     @classmethod
-    async def select_by_passport_number(cls, number):
+    async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
+
+    @classmethod
+    async def select_for_clients_table(cls, num_of_items: str, offset: str):
+        query = "SELECT cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
+                "FROM clients as cl " \
+                "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
+                "GROUP BY cl.id " \
+                f"LIMIT {num_of_items} " \
+                f"OFFSET {offset}"
+        return await db.fetch_all(query=query)
 
 
 class Order(Base):
@@ -59,6 +80,16 @@ class Order(Base):
     add_date = Column(Date)  # datetime.date()
     rental_time = Column(Integer)  # in days
 
+    @classmethod
+    async def select_for_orders_table(cls, num_of_items: str, offset: str):
+        query = "SELECT ca.id, cl.passport_number, ord.add_date," \
+                "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
+                "FROM clients as cl " \
+                "INNER JOIN orders as ord ON cl.id = ord.id_client " \
+                "INNER JOIN cars as ca ON ord.id_car = ca.id " \
+                f"LIMIT {num_of_items} " \
+                f"OFFSET {offset}"
+        return await db.fetch_all(query=query)
 
 # deprecated, use alembic migrations
 # creates all tables

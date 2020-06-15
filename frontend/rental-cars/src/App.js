@@ -5,6 +5,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import RegisterPage from "./components/login_register/RegisterPage";
 
 function App() {
+
     return (
         <BrowserRouter>
             <div>

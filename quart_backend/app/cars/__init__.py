@@ -1,11 +1,11 @@
 from quart import Blueprint
 
 bp = Blueprint(
-    'api',
+    'cars',
     __name__,
-    url_prefix='/api',
+    url_prefix='/cars',
     template_folder='templates',
     static_folder='static'
 )
 
-from app.api import routes
+from app.cars import routes

@@ -456,6 +456,17 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
+description = "A Quart extension to provide Cross Origin Resource Sharing, access control, support."
+name = "quart-cors"
+optional = false
+python-versions = ">=3.7.0"
+version = "0.3.0"
+
+[package.dependencies]
+Quart = ">=0.11.1"
+
+[[package]]
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -543,7 +554,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "c91b383544edf5bbf080ca5674ba8e19085463db636269d59893065f9c93af4f"
+content-hash = "3896dad5fe08b90f9ecce5c1db0b3504d837b44d82a0c7bca0ae672bb611629b"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -790,6 +801,10 @@ python-editor = [
 quart = [
     {file = "Quart-0.12.0-py3-none-any.whl", hash = "sha256:f706e6eff0ef756b88d9965359f7445c9c2773551dca822deb8c018c58c00902"},
     {file = "Quart-0.12.0.tar.gz", hash = "sha256:99a65bc90d0e1260c9cc9a7dd0b8523eb6cd9f4ec146e771e98a55ee180ae6c2"},
+]
+quart-cors = [
+    {file = "Quart-CORS-0.3.0.tar.gz", hash = "sha256:c08bdb326219b6c186d19ed6a97a7fd02de8fe36c7856af889494c69b525c53c"},
+    {file = "Quart_CORS-0.3.0-py3-none-any.whl", hash = "sha256:020a17d504264db86cada3c1335ef174af28b33f57cee321ddc46d69c33d5c8e"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
