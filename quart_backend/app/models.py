@@ -79,13 +79,14 @@ class Order(Base):
     rental_time = Column(Integer)  # in days
 
     @classmethod
-    async def select_for_orders_table(cls):
-        # todo: add pagination
+    async def select_for_orders_table(cls, num_of_items: str, offset: str):
         query = "SELECT ca.id, cl.passport_number, ord.add_date," \
                 "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
                 "FROM clients as cl " \
                 "INNER JOIN orders as ord ON cl.id = ord.id_client " \
-                "INNER JOIN cars as ca ON ord.id_car = ca.id"
+                "INNER JOIN cars as ca ON ord.id_car = ca.id " \
+                f"LIMIT {num_of_items} " \
+                f"OFFSET {offset}"
         return await db.fetch_all(query=query)
 
 # deprecated, use alembic migrations

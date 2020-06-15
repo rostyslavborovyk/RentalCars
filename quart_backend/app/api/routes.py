@@ -5,5 +5,5 @@ from app.base.routes import jwt_required
 
 @bp.route('/api', methods=['GET'])
 @jwt_required
-async def healthcheck() -> str:
+async def check() -> str:
     return "Ok"
