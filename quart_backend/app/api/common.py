@@ -16,3 +16,13 @@ async def get_data_for_table(select_func):
         return "error", make_response(jsonify({"status": "db error occurred, check query params"}), 500)
 
     return data
+
+
+async def get_item_from_id(get_func):
+    id_ = request.args.get("id")
+    if not id_:
+        return "error", make_response(jsonify({"status": "id query param is not set"}), 400)
+    item = await get_func(id_)
+    if item is None:
+        return "error", make_response(jsonify({"status": "no item with such id"}), 400)
+    return "ok", item

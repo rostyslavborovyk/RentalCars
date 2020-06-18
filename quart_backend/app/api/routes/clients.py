@@ -3,7 +3,7 @@ from quart import make_response, jsonify
 
 from app.models import Client
 from app.api import bp
-from app.api.utils import get_data_for_table
+from app.api.common import get_data_for_table
 
 
 @bp.route("/clients/table", methods=["GET"])

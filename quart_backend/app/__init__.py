@@ -29,15 +29,6 @@ def register_blueprints(app: Pint) -> None:
     api_bp = import_module("app.api").bp
     app.register_blueprint(api_bp)
 
-    # clients_bp = import_module("app.clients").bp
-    # app.register_blueprint(clients_bp)
-    #
-    # orders_bp = import_module("app.orders").bp
-    # app.register_blueprint(orders_bp)
-    #
-    # cars_bp = import_module("app.cars").bp
-    # app.register_blueprint(cars_bp)
-
 
 def create_app(config_class=Development) -> Pint:
     app = Pint(__name__)

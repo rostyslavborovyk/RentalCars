@@ -3,7 +3,7 @@ from quart import make_response, jsonify
 
 from app.models import Order
 from app.api import bp
-from app.api.utils import get_data_for_table
+from app.api.common import get_data_for_table
 
 
 @bp.route("/orders/table", methods=["GET"])

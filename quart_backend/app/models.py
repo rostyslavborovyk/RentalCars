@@ -21,7 +21,7 @@ class Car(Base):
     cost = Column(Float)
 
     @classmethod
-    async def select_car_by_id(cls, id_: str):
+    async def select_by_id(cls, id_: str):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
     @classmethod
@@ -59,6 +59,10 @@ class Client(Base):
     @classmethod
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
+
+    @classmethod
+    async def select_by_id(cls, id_: str):
+        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
     @classmethod
     async def select_for_clients_table(cls, num_of_items: str, offset: str):

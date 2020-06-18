@@ -3,19 +3,24 @@ from quart import make_response, jsonify
 
 from app.models import Car
 from app.api import bp
-from app.api.utils import get_data_for_table
+from app.api.common import get_data_for_table, get_item_from_id
+from app.api.utils.json_serializers import CarSerializer
 
 
-# @bp.route("/cars/<string:car_id>")
-# class CarsResource(Resource):
-#     async def get(self, car_id):
-#         return car_id
-#
-#     async def put(self, car_id):
-#         return "Ok"
-#
-#     async def delete(self, car_id):
-#         return "Ok"
+@bp.route("/cars")
+class CarsResource(Resource):
+    async def get(self):
+        response = await get_item_from_id(Car.select_by_id)
+        if response[0] == "error":
+            return await response[1]
+        serialized = CarSerializer.to_dict(response[1])
+        return await make_response(jsonify(serialized), 400)
+
+    async def put(self):
+        return "Ok"
+
+    async def delete(self):
+        return "Ok"
 
 
 @bp.route("/cars/table", methods=["GET"])
