@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from databases import Database
 import sqlalchemy
 from quart_cors import cors
+from quart_openapi import Pint
 
 # one import for running alembic commands, other for running app
 try:
@@ -21,25 +22,25 @@ db = Database(Development.SQLALCHEMY_DATABASE_URI)
 engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
 
 
-def register_blueprints(app: Quart) -> None:
+def register_blueprints(app: Pint) -> None:
     base_bp = import_module("app.base").bp
     app.register_blueprint(base_bp)
 
     api_bp = import_module("app.api").bp
     app.register_blueprint(api_bp)
 
-    clients_bp = import_module("app.clients").bp
-    app.register_blueprint(clients_bp)
+    # clients_bp = import_module("app.clients").bp
+    # app.register_blueprint(clients_bp)
+    #
+    # orders_bp = import_module("app.orders").bp
+    # app.register_blueprint(orders_bp)
+    #
+    # cars_bp = import_module("app.cars").bp
+    # app.register_blueprint(cars_bp)
 
-    orders_bp = import_module("app.orders").bp
-    app.register_blueprint(orders_bp)
 
-    cars_bp = import_module("app.cars").bp
-    app.register_blueprint(cars_bp)
-
-
-def create_app(config_class=Development) -> Quart:
-    app = Quart(__name__)
+def create_app(config_class=Development) -> Pint:
+    app = Pint(__name__)
 
     @app.before_request
     async def connect_db() -> None:

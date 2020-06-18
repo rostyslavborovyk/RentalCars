@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "rental_cars_backend"
+name = "quart_backend"
 version = "0.1.0"
 description = ""
 authors = ["rostislav <rostmoguchiy@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-quart = "^0.12.0"
+python = "^3.8"
+quart = "0.11.5"
 databases = "^0.3.2"
 alembic = "^1.4.2"
 mysqlclient = "^1.4.6"
@@ -17,6 +17,7 @@ python-dotenv = "^0.13.0"
 aiomysql = "^0.0.20"
 bcrypt = "^3.1.7"
 Quart-CORS = "^0.3.0"
+quart-openapi = "^1.5.3"
 
 [tool.poetry.dev-dependencies]
 
