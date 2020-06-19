@@ -1,9 +1,12 @@
+from bcrypt import hashpw, gensalt
+
 from app import db, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
-from sqlalchemy import update, insert, join
+from sqlalchemy import update, insert, join, delete
 from sqlalchemy.sql.selectable import Select
 from uuid import uuid4
+from datetime import date
 
 Base = declarative_base()
 
@@ -12,6 +15,8 @@ Base = declarative_base()
 class TableMixin:
     pass
 
+
+# todo put common query functions to mixin
 
 class Car(Base):
     __tablename__ = 'cars'
@@ -25,8 +30,17 @@ class Car(Base):
         return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
     @classmethod
+    async def insert(cls, obj) -> None:
+        obj.update(id=uuid4().hex)
+        await db.execute(query=insert(cls), values=obj)
+
+    @classmethod
+    async def delete(cls, id_):
+        await db.execute(query=delete(cls).where(cls.id == id_))
+
+    @classmethod
     async def select_for_cars_table(cls, num_of_items: str, offset: str):
-        query = "SELECT ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
+        query = "SELECT ca.id, ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
                 "FROM cars as ca " \
                 "LEFT JOIN orders as ord on ca.id = ord.id_car " \
                 "GROUP BY ca.id " \
@@ -45,6 +59,7 @@ class Client(Base):
     passport_number = Column(String(60), unique=True)
     hashed_password = Column(String(60))
 
+    # todo replace all usages to insert method
     @classmethod
     async def insert_client(cls, client) -> None:
         await db.execute(query=insert(cls), values={
@@ -57,6 +72,18 @@ class Client(Base):
         })
 
     @classmethod
+    async def insert(cls, obj) -> None:
+        obj.update(id=uuid4().hex)
+        obj.update(registration_date=date.today())
+        obj.update(hashed_password=hashpw(str(obj["password"]).encode("utf-8"), gensalt()))
+        obj.pop("password")
+        await db.execute(query=insert(cls), values=obj)
+
+    @classmethod
+    async def delete(cls, id_):
+        await db.execute(query=delete(cls).where(cls.id == id_))
+
+    @classmethod
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
@@ -66,7 +93,7 @@ class Client(Base):
 
     @classmethod
     async def select_for_clients_table(cls, num_of_items: str, offset: str):
-        query = "SELECT cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
+        query = "SELECT cl.id, cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
                 "FROM clients as cl " \
                 "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
                 "GROUP BY cl.id " \
@@ -86,7 +113,7 @@ class Order(Base):
 
     @classmethod
     async def select_for_orders_table(cls, num_of_items: str, offset: str):
-        query = "SELECT ca.id, cl.passport_number, ord.add_date," \
+        query = "SELECT ord.id, ca.id, cl.passport_number, ord.add_date," \
                 "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
                 "FROM clients as cl " \
                 "INNER JOIN orders as ord ON cl.id = ord.id_client " \
@@ -94,6 +121,7 @@ class Order(Base):
                 f"LIMIT {num_of_items} " \
                 f"OFFSET {offset}"
         return await db.fetch_all(query=query)
+
 
 # deprecated, use alembic migrations
 # creates all tables
