@@ -71,12 +71,14 @@ class Client(TableMixin, Base):
         })
 
     @classmethod
-    async def insert(cls, obj) -> None:
-        obj.update(id=uuid4().hex)
+    async def insert(cls, obj) -> str:
+        id_ = uuid4().hex
+        obj.update(id=id_)
         obj.update(registration_date=date.today())
         obj.update(hashed_password=hashpw(str(obj["password"]).encode("utf-8"), gensalt()))
         obj.pop("password")
         await db.execute(query=insert(cls), values=obj)
+        return id_
 
     @classmethod
     async def select_by_passport_number(cls, number: str):
@@ -114,10 +116,12 @@ class Order(TableMixin, Base):
         return await db.fetch_all(query=query)
 
     @classmethod
-    async def insert(cls, obj) -> None:
-        obj.update(id=uuid4().hex)
+    async def insert(cls, obj) -> str:
+        id_ = uuid4().hex
+        obj.update(id=id_)
         obj.update(add_date=date.today())
         await db.execute(query=insert(cls), values=obj)
+        return id_
 
 # deprecated, use alembic migrations
 # creates all tables
