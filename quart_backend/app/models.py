@@ -13,12 +13,16 @@ Base = declarative_base()
 
 # todo implement __repr__ and add to models
 class TableMixin:
-    pass
+    @classmethod
+    async def select_by_id(cls, id_: str):
+        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
+
+    @classmethod
+    async def delete(cls, id_):
+        await db.execute(query=delete(cls).where(cls.id == id_))
 
 
-# todo put common query functions to mixin
-
-class Car(Base):
+class Car(TableMixin, Base):
     __tablename__ = 'cars'
 
     id = Column(String(32), primary_key=True)
@@ -26,17 +30,9 @@ class Car(Base):
     cost = Column(Float)
 
     @classmethod
-    async def select_by_id(cls, id_: str):
-        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
-
-    @classmethod
     async def insert(cls, obj) -> None:
         obj.update(id=uuid4().hex)
         await db.execute(query=insert(cls), values=obj)
-
-    @classmethod
-    async def delete(cls, id_):
-        await db.execute(query=delete(cls).where(cls.id == id_))
 
     @classmethod
     async def select_for_cars_table(cls, num_of_items: str, offset: str):
@@ -49,7 +45,7 @@ class Car(Base):
         return await db.fetch_all(query=query)
 
 
-class Client(Base):
+class Client(TableMixin, Base):
     __tablename__ = 'clients'
 
     id = Column(String(32), primary_key=True)
@@ -80,16 +76,8 @@ class Client(Base):
         await db.execute(query=insert(cls), values=obj)
 
     @classmethod
-    async def delete(cls, id_):
-        await db.execute(query=delete(cls).where(cls.id == id_))
-
-    @classmethod
     async def select_by_passport_number(cls, number: str):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
-
-    @classmethod
-    async def select_by_id(cls, id_: str):
-        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
 
     @classmethod
     async def select_for_clients_table(cls, num_of_items: str, offset: str):
@@ -102,7 +90,7 @@ class Client(Base):
         return await db.fetch_all(query=query)
 
 
-class Order(Base):
+class Order(TableMixin, Base):
     __tablename__ = 'orders'
 
     id = Column(String(32), primary_key=True)
@@ -123,18 +111,11 @@ class Order(Base):
         return await db.fetch_all(query=query)
 
     @classmethod
-    async def select_by_id(cls, id_: str):
-        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
-
-    @classmethod
     async def insert(cls, obj) -> None:
         obj.update(id=uuid4().hex)
         obj.update(add_date=date.today())
         await db.execute(query=insert(cls), values=obj)
 
-    @classmethod
-    async def delete(cls, id_):
-        await db.execute(query=delete(cls).where(cls.id == id_))
 
 # deprecated, use alembic migrations
 # creates all tables
