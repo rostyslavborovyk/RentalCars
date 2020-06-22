@@ -18,8 +18,7 @@ async def get_data_for_table(select_func):
     return data
 
 
-async def get_item_from_id(get_func):
-    id_ = request.args.get("id")
+async def get_item_from_id(id_, get_func):
     if not id_:
         return "error", make_response(jsonify({"status": "id query param is not set"}), 400)
     item = await get_func(id_)

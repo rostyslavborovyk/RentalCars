@@ -1,25 +1,44 @@
 from quart_openapi import Resource
 from quart import make_response, jsonify
 
+from app.api.utils.reqparsers import OrderReqParser
 from app.api.utils.serializers import OrderSerializer
 from app.models import Order
 from app.api import bp
-from app.api.common import get_data_for_table
+from app.api.common import get_data_for_table, get_item_from_id
+
+
+@bp.route("/orders/<string:id_>")
+class OrdersResource(Resource):
+    async def get(self, id_):
+        response = await get_item_from_id(id_, Order.select_by_id)
+        if response[0] == "error":
+            return await response[1]
+        serialized = OrderSerializer.to_dict(response[1])
+        return await make_response(jsonify(serialized), 200)
+
+    async def put(self, id_):
+        return await make_response(jsonify({"status": "not implemented"}), 200)
+
+    async def delete(self, id_):
+        try:
+            await Order.delete(id_)
+        except Exception as e:
+            print(e)
+            return await make_response(jsonify({"status": "db error occurred"}), 500)
+        return await make_response(jsonify({"status": "ok"}), 200)
 
 
 @bp.route("/orders")
-class OrdersResource(Resource):
-    async def get(self):
-        return await make_response(jsonify({"status": "not implemented"}), 200)
-
+class OrdersListResource(Resource):
     async def post(self):
-        return await make_response(jsonify({"status": "not implemented"}), 200)
-
-    async def put(self):
-        return await make_response(jsonify({"status": "not implemented"}), 200)
-
-    async def delete(self):
-        return await make_response(jsonify({"status": "not implemented"}), 200)
+        json_obj = await OrderReqParser.parse_request()
+        try:
+            await Order.insert(json_obj)
+        except Exception as e:
+            print(e)
+            return await make_response(jsonify({"status": "db error occurred"}), 500)
+        return await make_response(jsonify({"status": "ok"}), 200)
 
 
 @bp.route("/orders/table", methods=["GET"])
@@ -29,15 +48,7 @@ async def orders_table():
         return await db_response[1]
 
     response_arr = []
-    # todo put this logic to serializer
     for i in range(len(db_response)):
-        obj = dict()
-        obj.update(order_id=db_response[i][0])
-        obj.update(car_number=db_response[i][1])
-        obj.update(client_passport_num=db_response[i][2])
-        obj.update(add_date=db_response[i][3].strftime("%d.%m.%y"))
-        obj.update(rental_time=db_response[i][4])
-        obj.update(car_rental_cost=db_response[i][5])
-        obj.update(total_cost=db_response[i][6])
-        response_arr.append(obj)
+        response_arr.append(OrderSerializer.table_to_dict(db_response[i]))
+
     return await make_response(jsonify(response_arr), 200)

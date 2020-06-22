@@ -122,6 +122,19 @@ class Order(Base):
                 f"OFFSET {offset}"
         return await db.fetch_all(query=query)
 
+    @classmethod
+    async def select_by_id(cls, id_: str):
+        return await db.fetch_one(query=Select([cls]).where(cls.id == id_))
+
+    @classmethod
+    async def insert(cls, obj) -> None:
+        obj.update(id=uuid4().hex)
+        obj.update(add_date=date.today())
+        await db.execute(query=insert(cls), values=obj)
+
+    @classmethod
+    async def delete(cls, id_):
+        await db.execute(query=delete(cls).where(cls.id == id_))
 
 # deprecated, use alembic migrations
 # creates all tables

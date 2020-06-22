@@ -34,12 +34,7 @@ class ClientReqParser(BaseReqParser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    # @classmethod
-    # async def parse_request(cls):
-    #     data = await request.data
-    #     return loads(cls.remove_spaces(data))
-    #
-    # @classmethod
-    # async def get_id_from_request(cls):
-    #     data = loads(cls.remove_spaces(await request.data))
-    #     return data["id"]
+
+class OrderReqParser(BaseReqParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
