@@ -11,6 +11,11 @@ from app.api.utils.reqparsers import CarReqParser
 @bp.route("/cars/<string:id_>")
 class CarsResource(Resource):
     async def get(self, id_):
+        """
+        Returns car by id
+        example query http://localhost:5000/api/cars/<some_id> with GET method
+        """
+
         response = await get_item_from_id(id_, Car.select_by_id)
         if response[0] == "error":
             return await response[1]
@@ -21,6 +26,11 @@ class CarsResource(Resource):
         return await make_response(jsonify({"status": "not implemented"}), 200)
 
     async def delete(self, id_):
+        """
+        Deletes car by id
+        example query http://localhost:5000/api/cars/<some_id> with DELETE method
+        """
+
         try:
             await Car.delete(id_)
         except Exception as e:
@@ -32,6 +42,11 @@ class CarsResource(Resource):
 @bp.route("/cars")
 class CarsListResource(Resource):
     async def post(self):
+        """
+        Posts car to db
+        example query http://localhost:5000/api/cars with POST method
+        """
+
         json_obj = await CarReqParser.parse_request()
         try:
             await Car.insert(json_obj)

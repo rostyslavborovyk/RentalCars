@@ -11,6 +11,11 @@ from app.api.common import get_data_for_table, get_item_from_id
 @bp.route("/orders/<string:id_>")
 class OrdersResource(Resource):
     async def get(self, id_):
+        """
+        Returns order by id
+        example query http://localhost:5000/api/orders/<some_id> with GET method
+        """
+
         response = await get_item_from_id(id_, Order.select_by_id)
         if response[0] == "error":
             return await response[1]
@@ -21,6 +26,11 @@ class OrdersResource(Resource):
         return await make_response(jsonify({"status": "not implemented"}), 200)
 
     async def delete(self, id_):
+        """
+        Deletes order by id
+        example query http://localhost:5000/api/orders/<some_id> with DELETE method
+        """
+
         try:
             await Order.delete(id_)
         except Exception as e:
@@ -32,6 +42,11 @@ class OrdersResource(Resource):
 @bp.route("/orders")
 class OrdersListResource(Resource):
     async def post(self):
+        """
+        Posts order to db
+        example query http://localhost:5000/api/orders with POST method
+        """
+
         json_obj = await OrderReqParser.parse_request()
         try:
             await Order.insert(json_obj)
