@@ -36,7 +36,7 @@ class CarsResource(Resource):
         except Exception as e:
             print(e)
             return await make_response(jsonify({"status": "db error occurred"}), 500)
-        return await make_response(jsonify({"status": "ok"}), 200)
+        return await make_response(jsonify({"status": "ok", "id": id_}), 200)
 
 
 @bp.route("/cars")
@@ -49,11 +49,11 @@ class CarsListResource(Resource):
 
         json_obj = await CarReqParser.parse_request()
         try:
-            await Car.insert(json_obj)
+            id_ = await Car.insert(json_obj)
         except Exception as e:
             print(e)
             return await make_response(jsonify({"status": "db error occurred"}), 500)
-        return await make_response(jsonify({"status": "ok"}), 200)
+        return await make_response(jsonify({"status": "ok", "id": id_}), 200)
 
 
 @bp.route("/cars/table", methods=["GET"])

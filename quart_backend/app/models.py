@@ -1,15 +1,16 @@
 from bcrypt import hashpw, gensalt
 
-from app import db, engine
+# from app import db, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
 from sqlalchemy import update, insert, join, delete
 from sqlalchemy.sql.selectable import Select
 from uuid import uuid4
 from datetime import date
+from app.db_init import DbWrapper
 
 Base = declarative_base()
-
+db = DbWrapper.create_instance()
 
 # todo implement __repr__ and add to models
 class TableMixin:
@@ -30,9 +31,11 @@ class Car(TableMixin, Base):
     cost = Column(Float)
 
     @classmethod
-    async def insert(cls, obj) -> None:
-        obj.update(id=uuid4().hex)
+    async def insert(cls, obj) -> str:
+        id_ = uuid4().hex
+        obj.update(id=id_)
         await db.execute(query=insert(cls), values=obj)
+        return id_
 
     @classmethod
     async def select_for_cars_table(cls, num_of_items: str, offset: str):
@@ -115,7 +118,6 @@ class Order(TableMixin, Base):
         obj.update(id=uuid4().hex)
         obj.update(add_date=date.today())
         await db.execute(query=insert(cls), values=obj)
-
 
 # deprecated, use alembic migrations
 # creates all tables

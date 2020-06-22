@@ -25,3 +25,5 @@ class Production(Config):
 
 class Test(Config):
     JSON_AS_ASCII = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') \
+                              or "mysql://srv84190_rost:pbhDcMq3Z@mysql-srv84190.hts.ru:3306/srv84190_carstest"

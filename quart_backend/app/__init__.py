@@ -6,6 +6,7 @@ from databases import Database
 import sqlalchemy
 from quart_cors import cors
 from quart_openapi import Pint
+from app.db_init import DbWrapper
 
 # one import for running alembic commands, other for running app
 try:
@@ -15,11 +16,11 @@ except ModuleNotFoundError:
 
 load_dotenv()
 
-# "databases" engine to execute async queries
-db = Database(Development.SQLALCHEMY_DATABASE_URI)
-
-# "sqlalchemy" sync engine to create tables
-engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
+# # "databases" engine to execute async queries
+# db = Database(Development.SQLALCHEMY_DATABASE_URI)
+#
+# # "sqlalchemy" sync engine to create tables
+# engine = sqlalchemy.create_engine(Development.SQLALCHEMY_DATABASE_URI)
 
 
 def register_blueprints(app: Pint) -> None:
@@ -32,6 +33,9 @@ def register_blueprints(app: Pint) -> None:
 
 def create_app(config_class=Development) -> Pint:
     app = Pint(__name__)
+    app.test_client()
+    DbWrapper.set_url(config_class.SQLALCHEMY_DATABASE_URI)
+    db = DbWrapper.create_instance()
 
     @app.before_request
     async def connect_db() -> None:
