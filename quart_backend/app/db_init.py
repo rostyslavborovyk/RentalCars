@@ -5,7 +5,7 @@ class DbWrapper:
     @classmethod
     def create_instance(cls):
         if not hasattr(cls, 'instance'):
-            if hasattr(cls, 'database_url'):
+            if hasattr(cls, '_database_url'):
                 cls.instance = Database(cls._database_url)
             else:
                 raise Exception("Database url must be set")
