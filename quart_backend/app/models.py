@@ -12,6 +12,7 @@ from app.db_init import DbWrapper
 Base = declarative_base()
 db = DbWrapper.create_instance()
 
+
 # todo implement __repr__ and add to models
 class TableMixin:
     @classmethod
