@@ -32,7 +32,9 @@ class OrdersResource(Resource):
         """
 
         try:
-            await Order.delete(id_)
+            status = await Order.delete(id_)
+            if status == 0:
+                return await make_response(jsonify({"status": "no item with such id"}), 400)
         except Exception as e:
             print(e)
             return await make_response(jsonify({"status": "db error occurred"}), 500)

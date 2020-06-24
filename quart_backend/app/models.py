@@ -21,7 +21,7 @@ class TableMixin:
 
     @classmethod
     async def delete(cls, id_):
-        await db.execute(query=delete(cls).where(cls.id == id_))
+        return await db.execute(query=delete(cls).where(cls.id == id_))
 
 
 class Car(TableMixin, Base):

@@ -32,7 +32,10 @@ class CarsResource(Resource):
         """
 
         try:
-            await Car.delete(id_)
+            status = await Car.delete(id_)
+            print(status)
+            if status == 0:
+                return await make_response(jsonify({"status": "no item with such id"}), 400)
         except Exception as e:
             print(e)
             return await make_response(jsonify({"status": "db error occurred"}), 500)
