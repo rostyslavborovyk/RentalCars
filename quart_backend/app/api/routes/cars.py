@@ -33,7 +33,6 @@ class CarsResource(Resource):
 
         try:
             status = await Car.delete(id_)
-            print(status)
             if status == 0:
                 return await make_response(jsonify({"status": "no item with such id"}), 400)
         except Exception as e:
@@ -48,6 +47,12 @@ class CarsListResource(Resource):
         """
         Posts car to db
         example query http://localhost:5000/api/cars with POST method
+
+        Example data:
+        {
+            "description":"suzuki",
+            "cost": "135"
+        }
         """
 
         json_obj = await CarReqParser.parse_request()

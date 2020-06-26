@@ -47,6 +47,14 @@ class ClientsListResource(Resource):
         """
         Posts client to db
         example query http://localhost:5000/api/clients with POST method
+
+        Example data:
+        {
+            "first_name":"Test",
+            "last_name": "Test",
+            "passport_number": "123jkw",
+            "password": "1234"
+        }
         """
 
         json_obj = await ClientReqParser.parse_request()

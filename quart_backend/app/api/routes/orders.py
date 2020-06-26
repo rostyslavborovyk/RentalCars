@@ -47,6 +47,13 @@ class OrdersListResource(Resource):
         """
         Posts order to db
         example query http://localhost:5000/api/orders with POST method
+
+        Example data:
+        {
+            "id_client": "41914b6550844be386bfb1f20a45dad1",
+            "id_car": "876fa87435874d60a77ccfe6b4db1fa8",
+            "rental_time": 10
+        }
         """
 
         json_obj = await OrderReqParser.parse_request()
