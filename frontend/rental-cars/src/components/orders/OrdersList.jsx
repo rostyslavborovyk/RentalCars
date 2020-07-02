@@ -2,8 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {OrdersRow} from "./OrdersRow";
 import {store} from "../../index";
 import {fetchOrders} from "../../redux/fetch/ordersFetch";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+
 
 export const OrdersList = () => {
   const [render, setRender] = useState(false);
