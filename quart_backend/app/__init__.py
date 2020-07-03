@@ -6,7 +6,7 @@ from databases import Database
 import sqlalchemy
 from quart_cors import cors
 from quart_openapi import Pint
-from app.db_init import DbWrapper
+from app.common.db_init import DbWrapper
 
 # one import for running alembic commands, other for running app
 try:
@@ -53,5 +53,5 @@ def create_app(config_class=Development) -> Pint:
     app.config.from_object(Development)
     register_blueprints(app)
 
-    app = cors(app)
+    app = cors(app, allow_credentials=True)
     return app

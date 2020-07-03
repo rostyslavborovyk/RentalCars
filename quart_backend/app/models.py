@@ -2,12 +2,12 @@ from bcrypt import hashpw, gensalt
 
 # from app import db, engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, Numeric, Date, ForeignKey, Float, Boolean
 from sqlalchemy import update, insert, join, delete
 from sqlalchemy.sql.selectable import Select
 from uuid import uuid4
 from datetime import date
-from app.db_init import DbWrapper
+from app.common.db_init import DbWrapper
 
 Base = declarative_base()
 db = DbWrapper.create_instance()
@@ -58,6 +58,7 @@ class Client(TableMixin, Base):
     registration_date = Column(Date)  # datetime.date()
     passport_number = Column(String(60), unique=True)
     hashed_password = Column(String(60))
+    admin = Column(Boolean(), default=0)
 
     # todo replace all usages to insert method
     @classmethod
@@ -68,7 +69,8 @@ class Client(TableMixin, Base):
             "last_name": client.last_name,
             "registration_date": client.registration_date,
             "passport_number": client.passport_number,
-            "hashed_password": client.hashed_password
+            "hashed_password": client.hashed_password,
+            "admin": 0
         })
 
     @classmethod
@@ -78,6 +80,7 @@ class Client(TableMixin, Base):
         obj.update(registration_date=date.today())
         obj.update(hashed_password=hashpw(str(obj["password"]).encode("utf-8"), gensalt()))
         obj.pop("password")
+        obj.update(admin=0)
         await db.execute(query=insert(cls), values=obj)
         return id_
 

@@ -7,16 +7,16 @@ import {getCookie} from "../../common/cookies";
 
 export const OrdersList = () => {
   const [render, setRender] = useState(false);
-  store.subscribe(() => {
-    console.log(store.getState())
-    setRender(!render)
-  })
-  // todo set unsubscribe func because of memory leaks
+
   useEffect(() => {
     console.log("Fetching orders")
 
     fetchOrders()(store.dispatch)
-
+    const unsubscribe = store.subscribe(() => {
+      console.log(store.getState())
+      setRender(!render)
+    })
+    return unsubscribe
   }, [])
 
   const selectOrders = (state) => {
