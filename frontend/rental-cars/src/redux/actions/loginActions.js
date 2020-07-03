@@ -3,7 +3,7 @@ export const LOGOUT = 'LOGOUT';
 
 export function login() {
   return {
-    type: LOGIN
+    type: LOGIN,
   }
 }
 

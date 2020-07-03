@@ -22,12 +22,17 @@ export const OrdersRow = (props) => {
       <td>{props.data.rental_time}</td>
       <td>{props.data.car_rental_cost}</td>
       <td>{props.data.total_cost}</td>
-      <td className="row-action">
-        <OrderDelete id={props.data.order_id}/>
-      </td>
-      <td className="row-action">
-        <OrderUpdate id={props.data.order_id}/>
-      </td>
+      {props.isAdmin === "True" &&
+      <Fragment>
+        <td className="row-action">
+          <OrderDelete id={props.data.order_id}/>
+        </td>
+        <td className="row-action">
+          <OrderUpdate id={props.data.order_id}/>
+        </td>
+      </Fragment>
+      }
+
     </tr>
   );
 

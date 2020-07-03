@@ -12,9 +12,14 @@ export const fetchLogin = (passportNum, password) => {
       }
     })
       .then((res => {
-        dispatch(login())
-        console.log(res)
+        return res.json()
+
       }))
+      .then(data => {
+        localStorage.setItem("firstName", data.firstName)
+        localStorage.setItem("lastName", data.lastName)
+        dispatch(login())
+      })
     // todo return false if request is not successful
     return true
   }

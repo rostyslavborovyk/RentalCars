@@ -1,6 +1,52 @@
 @import "~bootstrap/scss/bootstrap";
 
+$base-color: #343a40 ;
+$accent-color: #555;
+$light-color: #848a90;
+$white-color: #fff;
+
+
 .orders-table-container {
   padding: 0;
   margin: 0;
 }
+
+.item-loader {
+  align-content: center;
+}
+
+.dateSearchContainer {
+  display: table;   /* Allow the centering to work */
+  margin: 0 auto;
+}
+
+ul.dateList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+ul.dateList li {
+  float: left;
+  padding: 1em;
+}
+
+.dateSearchBtn {
+  padding: 1em;
+  margin-top: 1em;
+  background: $base-color;
+  color: white;
+}
+
+.nav-name-elem {
+  color: $white-color;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.nav-name-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+

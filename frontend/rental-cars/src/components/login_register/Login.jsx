@@ -26,7 +26,6 @@ const LoginForm = (props) => {
     e.preventDefault();
 
     const isSuccessSubmit = await auth.login(passportNum, password);
-    console.log(auth.isAuthentificated())
     setSuccessSubmit(isSuccessSubmit);
 
   }

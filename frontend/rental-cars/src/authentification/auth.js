@@ -1,5 +1,6 @@
 import {fetchLogin, fetchLogout} from "../redux/fetch/loginFetch";
 import {store} from "../index";
+import {deleteCookie} from "../common/cookies";
 
 class Auth {
   // isLoggedTimeout is set to remove isLogged from local storage whe the time is off
@@ -28,6 +29,7 @@ class Auth {
     if (res === true){
       this.setIsLoggedWithTimeout("false", 0)
     }
+    deleteCookie("isAdmin")
     return res
   }
 
@@ -36,7 +38,6 @@ class Auth {
   }
 
   isAuthentificated() {
-    console.log(store.getState())
     return this.selectIsAuthentificated(store.getState())
   }
 
