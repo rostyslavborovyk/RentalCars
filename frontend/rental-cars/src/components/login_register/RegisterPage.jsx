@@ -55,18 +55,15 @@ const RegisterForm = (props) => {
       <form>
         <div className={s.formGroup}>
           <input
-            id="reg_first_name"
             type="text"
             name="first_name"
             placeholder="First name"
             autoComplete="off"
             onChange={(e) => setFirstName(e.target.value)}
-            required={true}
           />
         </div>
         <div className={s.formGroup}>
           <input
-            id="reg_last_name"
             type="text"
             name="last_name"
             placeholder="Last name"
@@ -76,7 +73,6 @@ const RegisterForm = (props) => {
         </div>
         <div className={s.formGroup}>
           <input
-            id="reg_passport_num"
             type="text"
             name="passport"
             placeholder="Passport number"
@@ -86,7 +82,6 @@ const RegisterForm = (props) => {
         </div>
         <div className={s.formGroup}>
           <input
-            id="reg_password"
             type="text"
             name="password"
             placeholder="Password"

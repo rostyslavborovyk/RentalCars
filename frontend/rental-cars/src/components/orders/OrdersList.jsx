@@ -17,7 +17,7 @@ export const OrdersList = () => {
   }, [])
 
   const selectOrders = (state) => {
-    return state.orders
+    return state.orders.orders
   }
 
   const showList = () => {
@@ -30,7 +30,6 @@ export const OrdersList = () => {
         {selectOrders(store.getState()).map((elem, idx) => (
           <OrdersRow isHeader={false} idx={idx} data={elem} key={idx}/>
         ))}
-        {console.log("render")}
         </tbody>
       </table>
     )

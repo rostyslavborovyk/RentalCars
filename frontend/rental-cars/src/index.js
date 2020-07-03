@@ -3,20 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {OrdersReducer} from "./redux/reducers/ordersReducer";
+import {LoginReducer} from "./redux/reducers/loginReducer";
 import thunk from "redux-thunk";
 
-const middlewares = [];
+const middlewares = [thunk];
+
+const allReducers = combineReducers({
+    orders: OrdersReducer,
+    login: LoginReducer,
+  }
+)
 
 export const store = createStore(
-  OrdersReducer,
+  allReducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App/>
   </React.StrictMode>,
   document.getElementById('root', applyMiddleware(...middlewares))
 );
