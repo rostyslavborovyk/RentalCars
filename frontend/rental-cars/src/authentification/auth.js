@@ -1,6 +1,6 @@
 import {fetchLogin, fetchLogout} from "../redux/fetch/loginFetch";
 import {store} from "../index";
-import {deleteCookie} from "../common/cookies";
+import {deleteCookie} from "../common/js/cookies";
 
 class Auth {
   // isLoggedTimeout is set to remove isLogged from local storage whe the time is off

@@ -1,6 +1,7 @@
 import React, {useState, Fragment} from "react";
 import s from "./login_register.module.css";
 import {NavLink, Redirect} from "react-router-dom";
+import swal from 'sweetalert';
 
 const RegisterPage = (props) => {
   return (
@@ -43,8 +44,9 @@ const RegisterForm = (props) => {
     })
       .then((res => {
         if (res.status === 200) {
-          alert("Registered!")
-          setSuccessSubmit(true)
+          swal("Successfully registered!",
+            "", "success")
+            .then(() => setSuccessSubmit(true))
         }
       }))
   }

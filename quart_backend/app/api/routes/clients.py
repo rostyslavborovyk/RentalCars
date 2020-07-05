@@ -2,10 +2,11 @@ from quart_openapi import Resource
 from quart import make_response, jsonify
 
 from app.api.utils.reqparsers import ClientReqParser
+from app.api.utils.response_formers import ClientsResponseFormer
 from app.api.utils.serializers import ClientSerializer
 from app.models import Client
 from app.api import bp
-from app.api.common import get_data_for_table, get_item_from_id
+from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages
 
 
 @bp.route("/clients/<string:id_>")
@@ -69,11 +70,12 @@ class ClientsListResource(Resource):
 @bp.route("/clients/table", methods=["GET"])
 async def clients_table():
     db_response = await get_data_for_table(Client.select_for_clients_table)
+    if len(db_response) == 0:
+        return await make_response(jsonify(ClientsResponseFormer.form([], 0)), 200)
+
     if db_response[0] == "error":
         return await db_response[1]
 
-    response_arr = []
-    for i in range(len(db_response)):
-        response_arr.append(ClientSerializer.table_to_dict(db_response[i]))
+    num_of_pages = await get_num_of_pages(Client.count_all)
 
-    return await make_response(jsonify(response_arr), 200)
+    return await make_response(jsonify(ClientsResponseFormer.form(db_response, num_of_pages)), 200)

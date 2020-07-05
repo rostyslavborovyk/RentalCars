@@ -3,9 +3,10 @@ from quart import make_response, jsonify
 
 from app.api.utils.reqparsers import OrderReqParser
 from app.api.utils.serializers import OrderSerializer
+from app.api.utils.response_formers import OrdersResponseFormer
 from app.models import Order
 from app.api import bp
-from app.api.common import get_data_for_table, get_item_from_id
+from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages
 
 
 @bp.route("/orders/<string:id_>")
@@ -68,11 +69,12 @@ class OrdersListResource(Resource):
 @bp.route("/orders/table", methods=["GET"])
 async def orders_table():
     db_response = await get_data_for_table(Order.select_for_orders_table)
+    if len(db_response) == 0:
+        return await make_response(jsonify(OrdersResponseFormer.form([], 0)), 200)
+
     if db_response[0] == "error":
         return await db_response[1]
 
-    response_arr = []
-    for i in range(len(db_response)):
-        response_arr.append(OrderSerializer.table_to_dict(db_response[i]))
+    num_of_pages = await get_num_of_pages(Order.count_all)
 
-    return await make_response(jsonify(response_arr), 200)
+    return await make_response(jsonify(OrdersResponseFormer.form(db_response, num_of_pages)), 200)

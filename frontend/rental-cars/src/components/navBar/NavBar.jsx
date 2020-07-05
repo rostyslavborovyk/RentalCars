@@ -1,14 +1,20 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {NavLink} from 'react-router-dom';
 import auth from "../../authentification/auth";
 import {store} from "../../index";
+import {connect} from "react-redux";
 
-export const NavBar = () => {
+const NavBar = (state) => {
   const [render, setRender] = useState(false);
 
-  store.subscribe(() => {
-    setRender(!render)
-  })
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+        setRender(!render)
+      }
+    )
+    return unsubscribe
+  }, [])
+
 
   const selectName = (state) => {
     return `${state.login.firstName} ${state.login.lastName}`
@@ -98,11 +104,15 @@ export const NavBar = () => {
             showLoginAndRegister()
           ) : (
             showLogout()
-          )
-          }
-
+          )}
         </div>
       </nav>
     </Fragment>
   )
 }
+
+export default connect(
+  state => ({
+    state: state
+  })
+)(NavBar)

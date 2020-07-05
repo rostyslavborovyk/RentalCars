@@ -1,10 +1,13 @@
-import React, {Fragment} from "react";
-import {NavBar} from "../navBar/NavBar";
-import {OrdersList} from "./OrdersList";
+import React, {Fragment, useState} from "react";
+import NavBar from "../navBar/NavBar";
+import OrdersList from "./OrdersList";
 import {ToolBar} from "./ToolBar";
+import Pagination from "./Pagination";
+import {connect} from "react-redux";
 // import {Pagination} from "./Pagination";
 
-export const Orders = () => {
+const Orders = () => {
+
   return (
     <Fragment>
       <NavBar/>
@@ -16,8 +19,8 @@ export const Orders = () => {
           <div className="col-1">
           </div>
           <div className="col-10">
-            <OrdersList/>
-            {/*<Pagination/>*/}
+            <OrdersList />
+            <Pagination />
           </div>
           <div className="col-1">
           </div>
@@ -26,3 +29,9 @@ export const Orders = () => {
     </Fragment>
   )
 }
+
+export default connect(
+  state => ({
+    state: state
+  })
+)(Orders)

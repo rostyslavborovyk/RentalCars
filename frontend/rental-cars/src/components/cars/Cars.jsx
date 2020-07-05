@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {NavBar} from "../navBar/NavBar";
+import NavBar from "../navBar/NavBar";
 
 export const Cars = () => {
   return (

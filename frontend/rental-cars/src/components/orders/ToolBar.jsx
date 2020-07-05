@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import {AddOrder} from "./AddOrder";
-import {DateSearch} from "./DateSearch";
+import DateSearch from "./DateSearch";
 
 export const ToolBar = () => {
   return (

@@ -1,9 +1,19 @@
-import {FETCH_ORDERS_ERROR, FETCH_ORDERS_PENDING, FETCH_ORDERS_SUCCESS} from "../actions/ordersActions";
+import {
+  DECREMENT_PAGE,
+  FETCH_ORDERS_ERROR,
+  FETCH_ORDERS_PENDING,
+  FETCH_ORDERS_SUCCESS,
+  INCREMENT_PAGE, SET_DATE
+} from "../actions/ordersActions";
 
 const initialOrdersState = {
   pending: false,
   orders: [],
-  error: null
+  error: null,
+  page: 1,
+  num_of_pages: 1,
+  fromDate: null,
+  toDate: null
 }
 
 export function OrdersReducer(state = initialOrdersState, action) {
@@ -17,13 +27,31 @@ export function OrdersReducer(state = initialOrdersState, action) {
       return {
         ...state,
         pending: false,
-        orders: action.orders
+        orders: action.orders.items,
+        num_of_pages: action.orders.num_of_pages
       }
+
     case FETCH_ORDERS_ERROR:
       return {
         ...state,
         pending: false,
         error: action.error
+      }
+    case INCREMENT_PAGE:
+      return {
+        ...state,
+        page: state.page + 1
+      }
+    case DECREMENT_PAGE:
+      return {
+        ...state,
+        page: state.page - 1
+      }
+    case SET_DATE:
+      return {
+        ...state,
+        fromDate: action.date.fromDate,
+        toDate: action.date.toDate
       }
     default:
       return state;

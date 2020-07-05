@@ -1,9 +1,10 @@
 from quart_openapi import Resource
 from quart import make_response, jsonify
 
+from app.api.utils.response_formers import CarsResponseFormer
 from app.models import Car
 from app.api import bp
-from app.api.common import get_data_for_table, get_item_from_id
+from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages
 from app.api.utils.serializers import CarSerializer
 from app.api.utils.reqparsers import CarReqParser
 
@@ -67,11 +68,12 @@ class CarsListResource(Resource):
 @bp.route("/cars/table", methods=["GET"])
 async def cars_table():
     db_response = await get_data_for_table(Car.select_for_cars_table)
+    if len(db_response) == 0:
+        return await make_response(jsonify(CarsResponseFormer.form([], 0)), 200)
+
     if db_response[0] == "error":
         return await db_response[1]
 
-    response_arr = []
-    for i in range(len(db_response)):
-        response_arr.append(CarSerializer.table_to_dict(db_response[i]))
+    num_of_pages = await get_num_of_pages(Car.count_all)
 
-    return await make_response(jsonify(response_arr), 200)
+    return await make_response(jsonify(CarsResponseFormer.form(db_response, num_of_pages)), 200)

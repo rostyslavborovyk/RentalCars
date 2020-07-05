@@ -23,6 +23,14 @@ class TableMixin:
     async def delete(cls, id_):
         return await db.execute(query=delete(cls).where(cls.id == id_))
 
+    @classmethod
+    async def count_all(cls):
+        """
+        Returns number of all records in current table
+        """
+        # todo replace raw query with sqlalchemy query
+        return await db.fetch_one(query=f"SELECT COUNT(*) FROM {cls.__tablename__}")
+
 
 class Car(TableMixin, Base):
     __tablename__ = 'cars'
@@ -109,14 +117,19 @@ class Order(TableMixin, Base):
     rental_time = Column(Integer)  # in days
 
     @classmethod
-    async def select_for_orders_table(cls, num_of_items: str, offset: str):
+    async def select_for_orders_table(cls, num_of_items: str, offset: str, from_date: str, to_date: str):
+        date_filter = ""
+        if from_date and to_date:
+            date_filter = f"WHERE ord.add_date > \'{from_date}\' and ord.add_date < \'{to_date}\' "
         query = "SELECT ord.id, ca.id, cl.passport_number, ord.add_date," \
                 "ord.rental_time, ca.cost, (ord.rental_time * ca.cost) as total " \
                 "FROM clients as cl " \
                 "INNER JOIN orders as ord ON cl.id = ord.id_client " \
                 "INNER JOIN cars as ca ON ord.id_car = ca.id " \
+                f"{date_filter}" \
                 f"LIMIT {num_of_items} " \
                 f"OFFSET {offset}"
+
         return await db.fetch_all(query=query)
 
     @classmethod

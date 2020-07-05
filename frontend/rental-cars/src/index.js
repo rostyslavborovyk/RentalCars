@@ -7,12 +7,15 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {OrdersReducer} from "./redux/reducers/ordersReducer";
 import {LoginReducer} from "./redux/reducers/loginReducer";
 import thunk from "redux-thunk";
+// import {PageReducer} from "./redux/reducers/pageReducer";
+import {Provider} from "react-redux";
 
 const middlewares = [thunk];
 
 const allReducers = combineReducers({
     orders: OrdersReducer,
     login: LoginReducer,
+    // page: PageReducer
   }
 )
 
@@ -23,7 +26,9 @@ export const store = createStore(
 
 ReactDOM.render(
   <React.StrictMode>
-    <App/>
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root', applyMiddleware(...middlewares))
 );

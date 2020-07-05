@@ -1,5 +1,5 @@
 import {LOGIN, LOGOUT} from "../actions/loginActions";
-import {deleteCookie} from "../../common/cookies";
+import {deleteCookie} from "../../common/js/cookies";
 
 const getIsLogged = () => {
   const isLogged = localStorage.getItem("isLogged");
