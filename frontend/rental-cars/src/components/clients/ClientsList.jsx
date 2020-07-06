@@ -6,6 +6,7 @@ import {selectClients, selectDate, selectPage, selectPending} from "../../redux/
 import {connect} from "react-redux";
 import {fetchClients} from "../../redux/fetch/clientsFetch";
 
+// todo make NUM_OF_ITEMS_PER_PAGE dynamical with regard to users page height
 const NUM_OF_ITEMS_PER_PAGE = 4;
 
 const ClientsList = (state) => {

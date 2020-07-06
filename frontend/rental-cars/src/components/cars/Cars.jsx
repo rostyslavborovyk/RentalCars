@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import NavBar from "../navBar/NavBar";
 
-export const Cars = () => {
+const Cars = () => {
   return (
     <Fragment>
       <NavBar/>
@@ -18,3 +18,5 @@ export const Cars = () => {
     </Fragment>
   )
 }
+
+export default Cars

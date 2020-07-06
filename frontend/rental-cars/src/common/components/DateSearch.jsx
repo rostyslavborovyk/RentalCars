@@ -38,7 +38,7 @@ const DateSearch = (state) => {
 
   return (
     <Fragment>
-      <div id="dateSearchContainer">
+      <div>
         <ul className="dateList">
           <li>
             <div className="dateSearchElem">

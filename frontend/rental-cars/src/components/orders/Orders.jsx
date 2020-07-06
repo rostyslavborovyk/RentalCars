@@ -8,7 +8,7 @@ import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/ordersSel
 import {decrementOrdersPage, incrementOrdersPage, setOrdersDate} from "../../redux/actions/ordersActions";
 import {AddItem} from "./AddItem";
 
-const Orders = () => {
+const Orders = (props) => {
   return (
     <Fragment>
       <NavBar/>
@@ -16,6 +16,7 @@ const Orders = () => {
         <div className="row">
           <ToolBar
             dateSearchAction={setOrdersDate}
+            icon={props.toolbarIc}
           >
             <AddItem/>
           </ToolBar>

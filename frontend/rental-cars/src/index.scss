@@ -15,10 +15,6 @@ $white-color: #fff;
   align-content: center;
 }
 
-.dateSearchContainer {
-  display: table;   /* Allow the centering to work */
-  margin: 0 auto;
-}
 
 ul.dateList {
   list-style-type: none;
@@ -57,6 +53,15 @@ ul.dateList li {
 
 #pagination-orders {
   text-align: center;
+}
+
+.img-container {
+  margin: auto;
+}
+
+#dateSearchContainer {
+  margin-left: 0;
+  padding-left: 0;
 }
 
 

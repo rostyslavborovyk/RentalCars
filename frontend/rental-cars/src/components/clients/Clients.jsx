@@ -8,8 +8,7 @@ import {decrementClientsPage, incrementClientsPage, setClientsDate} from "../../
 import {ToolBar} from "../../common/components/ToolBar";
 import {AddItem} from "../orders/AddItem";
 
-const Clients = () => {
-
+const Clients = (props) => {
   return (
     <Fragment>
       <NavBar/>
@@ -17,6 +16,7 @@ const Clients = () => {
         <div className="row">
           <ToolBar
             dateSearchAction={setClientsDate}
+            icon={props.toolbarIc}
           >
             <AddItem/>
           </ToolBar>
