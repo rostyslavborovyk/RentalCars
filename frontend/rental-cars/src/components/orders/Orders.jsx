@@ -1,26 +1,36 @@
 import React, {Fragment, useState} from "react";
 import NavBar from "../navBar/NavBar";
 import OrdersList from "./OrdersList";
-import {ToolBar} from "./ToolBar";
-import Pagination from "./Pagination";
+import {ToolBar} from "../../common/components/ToolBar";
+import Pagination from "../../common/components/Pagination";
 import {connect} from "react-redux";
-// import {Pagination} from "./Pagination";
+import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/ordersSelectors";
+import {decrementOrdersPage, incrementOrdersPage, setOrdersDate} from "../../redux/actions/ordersActions";
+import {AddItem} from "./AddItem";
 
 const Orders = () => {
-
   return (
     <Fragment>
       <NavBar/>
       <div className="orders-table-container">
         <div className="row">
-          <ToolBar/>
+          <ToolBar
+            dateSearchAction={setOrdersDate}
+          >
+            <AddItem/>
+          </ToolBar>
         </div>
         <div className="row">
           <div className="col-1">
           </div>
           <div className="col-10">
             <OrdersList />
-            <Pagination />
+            <Pagination
+              selectNumOfPagesFunc={selectNumOfPages}
+              selectPageFunc={selectPage}
+              decrementPageFunc={decrementOrdersPage}
+              incrementPageFunc={incrementOrdersPage}
+            />
           </div>
           <div className="col-1">
           </div>

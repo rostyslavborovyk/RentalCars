@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {OrdersRow} from "./OrdersRow";
+import {ItemsRow} from "../../common/components/ItemsRow";
 import {store} from "../../index";
 import {fetchOrders} from "../../redux/fetch/ordersFetch";
 import {getCookie} from "../../common/js/cookies";
-import {selectDate, selectPage} from "../../redux/selectStore/orders";
+import {selectDate, selectOrders, selectPage, selectPending} from "../../redux/storeSelectors/ordersSelectors";
 import {connect} from "react-redux";
 
 const NUM_OF_ITEMS_PER_PAGE = 4;
@@ -11,13 +11,22 @@ const NUM_OF_ITEMS_PER_PAGE = 4;
 const OrdersList = (state) => {
   const [render, setRender] = useState(false);
 
+  const getColumnHeaders = () => {
+    return ["Car number", "Client passport num", "Add date", "Rental time", "Car rental cost", "Total cost"]
+  }
+
+  const getRowDataKeys = () => {
+    return ["car_number", "client_passport_num", "add_date", "rental_time", "car_rental_cost", "total_cost"]
+  }
+
+
   useEffect(() => {
     console.log("Fetching orders")
     console.log(selectDate(state.state))
     const date = selectDate(state.state)
     fetchOrders(
       NUM_OF_ITEMS_PER_PAGE,
-      (selectPage(state.state)-1) * NUM_OF_ITEMS_PER_PAGE,
+      (selectPage(state.state) - 1) * NUM_OF_ITEMS_PER_PAGE,
       date.fromDate,
       date.toDate
     )(state.dispatch)
@@ -34,14 +43,6 @@ const OrdersList = (state) => {
     state.state.orders.toDate,
   ])
 
-  const selectOrders = (state) => {
-    return state.orders.orders
-  }
-
-  const selectPending = (state) => {
-    return state.orders.pending
-  }
-
   const getIsAdmin = () => {
     return getCookie("isAdmin")
   }
@@ -50,11 +51,22 @@ const OrdersList = (state) => {
     return (
       <table className="table">
         <thead>
-        <OrdersRow isHeader={true}/>
+        <ItemsRow
+          isHeader={true}
+          columnHeaders={getColumnHeaders()}
+        />
         </thead>
         <tbody id="orders-table">
         {selectOrders(state.state).map((elem, idx) => (
-          <OrdersRow isHeader={false} idx={idx} data={elem} key={idx} isAdmin={getIsAdmin()}/>
+          <ItemsRow
+            isHeader={false}
+            idx={idx}
+            data={elem}
+            key={idx}
+            isAdmin={getIsAdmin()}
+            rowDatakeys={getRowDataKeys()}
+            itemId={elem.order_id}
+          />
         ))}
         </tbody>
       </table>

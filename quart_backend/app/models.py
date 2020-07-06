@@ -97,10 +97,14 @@ class Client(TableMixin, Base):
         return await db.fetch_one(query=Select([cls]).where(cls.passport_number == number))
 
     @classmethod
-    async def select_for_clients_table(cls, num_of_items: str, offset: str):
+    async def select_for_clients_table(cls, num_of_items: str, offset: str, from_date: str, to_date: str):
+        date_filter = ""
+        if from_date and to_date:
+            date_filter = f"WHERE cl.registration_date > \'{from_date}\' and cl.registration_date < \'{to_date}\' "
         query = "SELECT cl.id, cl.first_name, cl.last_name, cl.registration_date, COUNT(ord.id) as num_of_orders " \
                 "FROM clients as cl " \
                 "LEFT JOIN orders as ord ON cl.id = ord.id_client " \
+                f"{date_filter}" \
                 "GROUP BY cl.id " \
                 f"LIMIT {num_of_items} " \
                 f"OFFSET {offset}"
@@ -140,6 +144,5 @@ class Order(TableMixin, Base):
         await db.execute(query=insert(cls), values=obj)
         return id_
 
-# deprecated, use alembic migrations
 # creates all tables
 # Base.metadata.create_all(engine)

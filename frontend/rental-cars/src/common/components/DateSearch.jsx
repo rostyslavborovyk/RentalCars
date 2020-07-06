@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {setDate} from "../../redux/actions/ordersActions";
 import swal from 'sweetalert';
 
 const DateSearch = (state) => {
@@ -23,14 +22,16 @@ const DateSearch = (state) => {
     if (toDate > fromDate) {
       const fromDateFormatted = formatDate(fromDate)
       const toDateFormatted = formatDate(toDate)
-      state.dispatch(setDate({
+      state.dispatch(state.action({
         fromDate: fromDateFormatted,
         toDate: toDateFormatted
       }))
     } else {
-      swal("Invalid input!",
+      swal(
+        "Invalid input!",
         "Date from should be earlier then date to",
-        "warning")
+        "warning"
+      )
     }
 
   }

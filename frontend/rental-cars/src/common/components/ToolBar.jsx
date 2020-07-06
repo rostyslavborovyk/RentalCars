@@ -1,17 +1,18 @@
 import React, {Fragment} from "react";
-import {AddOrder} from "./AddOrder";
 import DateSearch from "./DateSearch";
 
-export const ToolBar = () => {
+export const ToolBar = (props) => {
   return (
     <Fragment>
       <div className="col-1">
       </div>
       <div className="col-8">
-        <DateSearch/>
+        <DateSearch
+          action={props.dateSearchAction}
+        />
       </div>
       <div className="col-2">
-        <AddOrder/>
+        {props.children}
       </div>
       <div className="col-1">
       </div>

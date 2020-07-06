@@ -27,7 +27,6 @@ const LoginForm = (props) => {
 
     const isSuccessSubmit = await auth.login(passportNum, password);
     setSuccessSubmit(isSuccessSubmit);
-
   }
 
   return (
@@ -36,7 +35,6 @@ const LoginForm = (props) => {
       <form>
         <div className={s.formGroup}>
           <input
-            id
             type="text"
             name="passport"
             placeholder="Passport number"

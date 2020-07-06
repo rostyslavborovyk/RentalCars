@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
 
-function OrderUpdate() {
-
+function ItemUpdate() {
   return (
     <Fragment>
       <button className="btn btn-outline-info btn-sm action-btn">
@@ -11,4 +10,4 @@ function OrderUpdate() {
   );
 }
 
-export default OrderUpdate;
+export default ItemUpdate;

@@ -4,7 +4,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import RegisterPage from "./components/login_register/RegisterPage";
 import Orders from "./components/orders/Orders";
 import {Main} from "./components/mainPage/Main";
-import {Clients} from "./components/clients/Clients";
+import Clients from "./components/clients/Clients";
 import {Cars} from "./components/cars/Cars";
 import {connect} from "react-redux";
 

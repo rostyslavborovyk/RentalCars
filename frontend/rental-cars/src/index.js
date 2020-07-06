@@ -9,13 +9,14 @@ import {LoginReducer} from "./redux/reducers/loginReducer";
 import thunk from "redux-thunk";
 // import {PageReducer} from "./redux/reducers/pageReducer";
 import {Provider} from "react-redux";
+import {ClientsReducer} from "./redux/reducers/clientsReducer";
 
 const middlewares = [thunk];
 
 const allReducers = combineReducers({
     orders: OrdersReducer,
     login: LoginReducer,
-    // page: PageReducer
+    clients: ClientsReducer
   }
 )
 

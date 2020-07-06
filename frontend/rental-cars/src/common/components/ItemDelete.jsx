@@ -1,16 +1,12 @@
 import React, {Fragment} from 'react';
 
-function OrderDelete(props) {
-  const onClick = (id) => {
-
-  }
+function ItemDelete(props) {
 
   return (
     <Fragment>
       <button
         className="btn btn-outline-danger btn-sm action-btn"
-        id={props.id}
-        onClick={(e) => onClick(props.id)}
+        onClick={() => props.deleteFunc(props.id)}
       >
         &times;
       </button>
@@ -18,4 +14,9 @@ function OrderDelete(props) {
   );
 }
 
-export default OrderDelete;
+// ItemDelete.propTypes = {
+//   id: PropTypes.string,
+//   deleteFunc: PropTypes.func,
+// }
+
+export default ItemDelete;

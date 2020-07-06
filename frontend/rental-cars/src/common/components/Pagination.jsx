@@ -1,7 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {selectNumOfPages, selectPage} from "../../redux/selectStore/orders";
 import {store} from "../../index";
-import {decrementPage, incrementPage} from "../../redux/actions/ordersActions";
 import {connect} from "react-redux";
 
 const Pagination = (state) => {
@@ -15,18 +13,18 @@ const Pagination = (state) => {
   }, [])
 
   const previousBtnHandler = (e) => {
-    const page = selectPage(state.state);
+    const page = state.selectPageFunc(state.state);
     if (page > 1){
-      state.dispatch(decrementPage())
+      state.dispatch(state.decrementPageFunc())
     }
 
   }
 
   const nextBtnHandler = () => {
-    const page = selectPage(state.state);
-    const numOfPages = selectNumOfPages(state.state);
+    const page = state.selectPageFunc(state.state);
+    const numOfPages = state.selectNumOfPagesFunc(state.state);
     if (page < numOfPages){
-      state.dispatch(incrementPage())
+      state.dispatch(state.incrementPageFunc())
     }
   }
 
@@ -37,18 +35,18 @@ const Pagination = (state) => {
           <button
             type="button"
             // if page = 1 previous btn is disabled
-            className={`btn btn-dark ${selectPage(state.state) === 1 && "disabled"}`}
+            className={`btn btn-dark ${state.selectPageFunc(state.state) === 1 && "disabled"}`}
             onClick={previousBtnHandler}
           >Previous
           </button>
         </li>
         <li>
-          <div className="btn btn-dark disabled">{selectPage(state.state)}</div>
+          <div className="btn btn-dark disabled">{state.selectPageFunc(state.state)}</div>
         </li>
         <li>
           <button
             type="button"
-            className={`btn btn-dark ${selectPage(state.state) === selectNumOfPages(state.state) && "disabled"}`}
+            className={`btn btn-dark ${state.selectPageFunc(state.state) === state.selectNumOfPagesFunc(state.state) && "disabled"}`}
             onClick={nextBtnHandler}
           >Next</button>
         </li>

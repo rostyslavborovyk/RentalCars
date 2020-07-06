@@ -1,11 +1,9 @@
-// import {DECREMENT_PAGE, INCREMENT_PAGE} from "./pageActions";
-
 export const FETCH_ORDERS_PENDING = 'FETCH_ORDERS_PENDING';
 export const FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS';
 export const FETCH_ORDERS_ERROR = 'FETCH_ORDERS_ERROR';
-export const INCREMENT_PAGE = 'INCREMENT_PAGE';
-export const DECREMENT_PAGE = 'DECREMENT_PAGE';
-export const SET_DATE = 'SET_DATE';
+export const INCREMENT_ORDERS_PAGE = 'INCREMENT_ORDERS_PAGE';
+export const DECREMENT_ORDERS_PAGE = 'DECREMENT_ORDERS_PAGE';
+export const SET_ORDERS_DATE = 'SET_ORDERS_DATE';
 
 export function fetchOrdersPending() {
   return {
@@ -27,22 +25,22 @@ export function fetchOrdersError(error) {
   }
 }
 
-export function incrementPage() {
+export function incrementOrdersPage() {
   return {
-    type: INCREMENT_PAGE
+    type: INCREMENT_ORDERS_PAGE
   }
 }
 
 
-export function decrementPage() {
+export function decrementOrdersPage() {
   return {
-    type: DECREMENT_PAGE,
+    type: DECREMENT_ORDERS_PAGE,
   }
 }
 
-export function setDate(date) {
+export function setOrdersDate(date) {
   return {
-    type: SET_DATE,
+    type: SET_ORDERS_DATE,
     date: date
   }
 }

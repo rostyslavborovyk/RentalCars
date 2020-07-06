@@ -1,9 +1,9 @@
 import React, {Fragment} from "react";
 
-export const AddOrder = () => {
+export const AddItem = () => {
   return (
     <Fragment>
-      <h1>AddOrder</h1>
+      <h1>AddItem</h1>
     </Fragment>
   )
 }

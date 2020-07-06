@@ -13,3 +13,11 @@ export const selectDate = (state) => {
   }
 }
 
+export const selectOrders = (state) => {
+  return state.orders.orders
+}
+
+export const selectPending = (state) => {
+  return state.orders.pending
+}
+
