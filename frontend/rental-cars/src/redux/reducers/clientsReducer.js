@@ -1,5 +1,5 @@
 import {
-  DECREMENT_CLIENTS_PAGE,
+  DECREMENT_CLIENTS_PAGE, DELETE_CLIENT_SUCCESS,
   FETCH_CLIENTS_ERROR,
   FETCH_CLIENTS_PENDING,
   FETCH_CLIENTS_SUCCESS,
@@ -13,7 +13,8 @@ const initialClientsState = {
   page: 1,
   num_of_pages: 1,
   fromDate: null,
-  toDate: null
+  toDate: null,
+  deletedFlag: null  // if car deletes flag changes to trigger page reloading
 }
 
 export function ClientsReducer(state = initialClientsState, action) {
@@ -52,6 +53,11 @@ export function ClientsReducer(state = initialClientsState, action) {
         ...state,
         fromDate: action.date.fromDate,
         toDate: action.date.toDate
+      }
+    case DELETE_CLIENT_SUCCESS:
+      return {
+        ...state,
+        deletedFlag: !state.deletedFlag
       }
     default:
       return state;

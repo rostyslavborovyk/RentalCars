@@ -4,10 +4,12 @@ import {store} from "../../index";
 import {getCookie} from "../../common/js/cookies";
 import {selectClients, selectDate, selectPage, selectPending} from "../../redux/storeSelectors/clientsSelectors";
 import {connect} from "react-redux";
-import {fetchClients} from "../../redux/fetch/clientsFetch";
+import {fetchClients, fetchDeleteClient} from "../../redux/fetch/clientsFetch";
+import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
+import {fetchDeleteCar} from "../../redux/fetch/carsFetch";
 
 // todo make NUM_OF_ITEMS_PER_PAGE dynamical with regard to users page height
-const NUM_OF_ITEMS_PER_PAGE = 4;
+let NUM_OF_ITEMS_PER_PAGE = 4;
 
 const ClientsList = (state) => {
   const [render, setRender] = useState(false);
@@ -23,6 +25,7 @@ const ClientsList = (state) => {
 
   useEffect(() => {
     console.log("Fetching clients")
+    NUM_OF_ITEMS_PER_PAGE = getNumOfItemsPerPage()
     const date = selectDate(state.state)
     fetchClients(
       NUM_OF_ITEMS_PER_PAGE,
@@ -49,7 +52,7 @@ const ClientsList = (state) => {
   const showList = () => {
     return (
       <table className="table">
-        <thead>
+        <thead id="items-table-header">
         <ItemsRow
           isHeader={true}
           columnHeaders={getColumnHeaders()}
@@ -65,6 +68,7 @@ const ClientsList = (state) => {
             isAdmin={getIsAdmin()}
             rowDatakeys={getRowDataKeys()}
             itemId={elem.client_id}
+            deleteFunc={fetchDeleteClient}
           />
         ))}
         </tbody>

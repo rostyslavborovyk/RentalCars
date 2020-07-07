@@ -27,7 +27,7 @@ export const ItemsRow = (props) => {
               <div className="col">
                 <ItemDelete
                   id={props.itemId}
-                  deleteFunc={fetchDeleteCar}
+                  deleteFunc={props.deleteFunc}
                 />
               </div>
               <div className="col">

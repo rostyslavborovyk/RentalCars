@@ -5,8 +5,9 @@ import {fetchOrders} from "../../redux/fetch/ordersFetch";
 import {getCookie} from "../../common/js/cookies";
 import {selectDate, selectOrders, selectPage, selectPending} from "../../redux/storeSelectors/ordersSelectors";
 import {connect} from "react-redux";
+import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
 
-const NUM_OF_ITEMS_PER_PAGE = 4;
+let NUM_OF_ITEMS_PER_PAGE = 4;
 
 const OrdersList = (state) => {
   const [render, setRender] = useState(false);
@@ -19,9 +20,9 @@ const OrdersList = (state) => {
     return ["car_number", "client_passport_num", "add_date", "rental_time", "car_rental_cost", "total_cost"]
   }
 
-
   useEffect(() => {
     console.log("Fetching orders")
+    NUM_OF_ITEMS_PER_PAGE = getNumOfItemsPerPage()
     const date = selectDate(state.state)
     fetchOrders(
       NUM_OF_ITEMS_PER_PAGE,
@@ -48,7 +49,7 @@ const OrdersList = (state) => {
   const showList = () => {
     return (
       <table className="table">
-        <thead>
+        <thead id="items-table-header">
         <ItemsRow
           isHeader={true}
           columnHeaders={getColumnHeaders()}

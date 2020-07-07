@@ -4,10 +4,11 @@ import {store} from "../../index";
 import {getCookie} from "../../common/js/cookies";
 import {selectCars, selectCost, selectPage, selectPending} from "../../redux/storeSelectors/carsSelectors";
 import {connect} from "react-redux";
-import {fetchCars} from "../../redux/fetch/carsFetch";
+import {fetchCars, fetchDeleteCar} from "../../redux/fetch/carsFetch";
+import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
 
 // todo make NUM_OF_ITEMS_PER_PAGE dynamical with regard to users page height
-const NUM_OF_ITEMS_PER_PAGE = 4;
+let NUM_OF_ITEMS_PER_PAGE = 4;
 
 const CarsList = (state) => {
   const [render, setRender] = useState(false);
@@ -20,9 +21,9 @@ const CarsList = (state) => {
     return ["car_description", "rental_cost", "number_of_orders"]
   }
 
-
   useEffect(() => {
     console.log("Fetching cars")
+    NUM_OF_ITEMS_PER_PAGE = getNumOfItemsPerPage()
     const cost = selectCost(state.state)
     fetchCars(
       NUM_OF_ITEMS_PER_PAGE,
@@ -49,7 +50,7 @@ const CarsList = (state) => {
   const showList = () => {
     return (
       <table className="table">
-        <thead>
+        <thead id="items-table-header">
         <ItemsRow
           isHeader={true}
           columnHeaders={getColumnHeaders()}
@@ -65,6 +66,7 @@ const CarsList = (state) => {
             isAdmin={getIsAdmin()}
             rowDatakeys={getRowDataKeys()}
             itemId={elem.car_id}
+            deleteFunc={fetchDeleteCar}
           />
         ))}
         </tbody>

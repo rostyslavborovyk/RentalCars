@@ -13,7 +13,8 @@ const initialOrdersState = {
   page: 1,
   num_of_pages: 1,
   fromDate: null,
-  toDate: null
+  toDate: null,
+  deletedFlag: null  // if car deletes flag changes to trigger page reloading
 }
 
 export function OrdersReducer(state = initialOrdersState, action) {

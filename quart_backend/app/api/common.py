@@ -35,7 +35,6 @@ async def get_data_for_table(select_func, **params):
 
 
 async def get_num_of_pages(count_func, **params):
-    # todo get the number of pages with regard to date query params
     num = (await count_func(**params))[0]
     return ceil(num / int(request.args.get("num_of_items")))
 
