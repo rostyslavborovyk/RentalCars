@@ -18,7 +18,9 @@ const Orders = (props) => {
             dateSearchAction={setOrdersDate}
             icon={props.toolbarIc}
           >
-            <AddItem/>
+            <AddItem
+              itemName={"order"}
+            />
           </ToolBar>
         </div>
         <div className="row">

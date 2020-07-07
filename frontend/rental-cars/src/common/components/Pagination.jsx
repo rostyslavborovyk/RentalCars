@@ -28,6 +28,12 @@ const Pagination = (state) => {
     }
   }
 
+  const getNextBtnClass = () => (
+    (state.selectPageFunc(state.state) === state.selectNumOfPagesFunc(state.state)
+    || state.selectNumOfPagesFunc(state.state) === 0)
+    && "disabled"
+  )
+
   return (
     <Fragment>
       <ul id="pagination-orders">
@@ -46,7 +52,7 @@ const Pagination = (state) => {
         <li>
           <button
             type="button"
-            className={`btn btn-dark ${state.selectPageFunc(state.state) === state.selectNumOfPagesFunc(state.state) && "disabled"}`}
+            className={`btn btn-dark ${getNextBtnClass()}`}
             onClick={nextBtnHandler}
           >Next</button>
         </li>

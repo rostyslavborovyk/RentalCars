@@ -7,6 +7,7 @@ import {Main} from "./components/mainPage/Main";
 import Clients from "./components/clients/Clients";
 import Cars from "./components/cars/Cars";
 import {connect} from "react-redux";
+import {AddCar} from "./components/cars/AddCar";
 
 function App(state) {
     return (
@@ -15,6 +16,7 @@ function App(state) {
                 <Route exact path="/" component={Main}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={RegisterPage}/>
+                <Route path="/add/car" component={AddCar}/>
                 <Route path="/orders" render={() => <Orders toolbarIc={"orders_ic.png"}/>}/>
                 <Route path="/clients" render={() => <Clients toolbarIc={"clients_ic.png"}/>}/>
                 <Route path="/cars" render={() => <Cars toolbarIc={"cars_ic.png"}/>}/>

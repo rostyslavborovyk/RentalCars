@@ -17,7 +17,9 @@ const Cars = (props) => {
         <RentalCostBar
           icon={props.toolbarIc}
         >
-          <AddItem/>
+          <AddItem
+            itemName={"car"}
+          />
         </RentalCostBar>
         </div>
         <div className="row">

@@ -71,7 +71,7 @@ const DateSearch = (state) => {
           <li>
             <div className="dateSearchElem">
               <button
-                className="btn searchBtn btn-dark"
+                className="btn search-btn btn-dark"
                 onClick={handleBtn}
               >Search
               </button>

@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import swal from 'sweetalert';
 import {setCarsCost} from "../../redux/actions/carsActions";
+import {AddItem} from "../../common/components/AddItem";
 
 const CostSearch = (state) => {
   const [costFrom, setCostFrom] = useState("");
@@ -62,7 +63,7 @@ const CostSearch = (state) => {
           <li>
             <div className="dateSearchElem">
               <button
-                className="btn searchBtn btn-dark"
+                className="btn search-btn btn-dark"
                 onClick={handleBtn}
               >Search
               </button>

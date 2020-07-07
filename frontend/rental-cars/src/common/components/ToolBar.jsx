@@ -14,7 +14,7 @@ export const ToolBar = (props) => {
           action={props.dateSearchAction}
         />
       </div>
-      <div className="col-2">
+      <div className="col-2 add-btn-container mr-sm-2">
         {props.children}
       </div>
       <div className="col-1">
