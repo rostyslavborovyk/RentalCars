@@ -1,4 +1,10 @@
-import {fetchOrdersError, fetchOrdersPending, fetchOrdersSuccess} from "../actions/ordersActions"
+import {
+  deleteOrderError,
+  deleteOrderSuccess,
+  fetchOrdersError,
+  fetchOrdersPending,
+  fetchOrdersSuccess
+} from "../actions/ordersActions"
 
 export const fetchOrders = (
   numOfItems = 10,
@@ -27,5 +33,25 @@ export const fetchOrders = (
         dispatch(fetchOrdersError(error));
       })
 
+  }
+}
+
+export const fetchDeleteOrder = (order_id) => {
+  return dispatch => {
+    let url = `http://localhost:5000/api/orders/${order_id}`
+    fetch(url, {
+      method: "DELETE"
+    })
+      .then(res => {
+        if (res.error) {
+          throw(res.error);
+        }
+        dispatch(deleteOrderSuccess());
+      })
+      .catch(error => {
+        console.log("error")
+        console.log(error)
+        dispatch(deleteOrderError(error));
+      })
   }
 }

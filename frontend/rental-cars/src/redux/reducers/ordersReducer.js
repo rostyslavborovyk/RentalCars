@@ -1,5 +1,5 @@
 import {
-  DECREMENT_ORDERS_PAGE,
+  DECREMENT_ORDERS_PAGE, DELETE_ORDER_SUCCESS,
   FETCH_ORDERS_ERROR,
   FETCH_ORDERS_PENDING,
   FETCH_ORDERS_SUCCESS,
@@ -53,6 +53,11 @@ export function OrdersReducer(state = initialOrdersState, action) {
         ...state,
         fromDate: action.date.fromDate,
         toDate: action.date.toDate
+      }
+    case DELETE_ORDER_SUCCESS:
+      return {
+        ...state,
+        deletedFlag: !state.deletedFlag
       }
     default:
       return state;

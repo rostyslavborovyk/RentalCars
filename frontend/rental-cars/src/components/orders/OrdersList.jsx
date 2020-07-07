@@ -1,11 +1,12 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {ItemsRow} from "../../common/components/ItemsRow";
 import {store} from "../../index";
-import {fetchOrders} from "../../redux/fetch/ordersFetch";
+import {fetchDeleteOrder, fetchOrders} from "../../redux/fetch/ordersFetch";
 import {getCookie} from "../../common/js/cookies";
 import {selectDate, selectOrders, selectPage, selectPending} from "../../redux/storeSelectors/ordersSelectors";
 import {connect} from "react-redux";
 import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
+import {fetchDeleteClient} from "../../redux/fetch/clientsFetch";
 
 let NUM_OF_ITEMS_PER_PAGE = 4;
 
@@ -65,6 +66,7 @@ const OrdersList = (state) => {
             isAdmin={getIsAdmin()}
             rowDatakeys={getRowDataKeys()}
             itemId={elem.order_id}
+            deleteFunc={fetchDeleteOrder}
           />
         ))}
         </tbody>
