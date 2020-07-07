@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import ItemDelete from "./ItemDelete";
 import ItemUpdate from "./ItemUpdate";
+import {fetchCars, fetchDeleteCar} from "../../redux/fetch/carsFetch";
 
 export const ItemsRow = (props) => {
   const showHeader = () => {
@@ -21,20 +22,26 @@ export const ItemsRow = (props) => {
       {props.isAdmin === "True" &&
       <Fragment>
         <td className="row-action">
-          <ItemDelete
-            id={props.itemId}
-            deleteFunc={(itemId) => console.log(itemId)}
-          />
+          <div className="del-upd-container">
+            <div className="row">
+              <div className="col">
+                <ItemDelete
+                  id={props.itemId}
+                  deleteFunc={fetchDeleteCar}
+                />
+              </div>
+              <div className="col">
+                <ItemUpdate
+                  id={props.itemId}
+                  updateFunc={(itemId) => console.log(itemId)}
+                />
+              </div>
+            </div>
+          </div>
         </td>
-        <td className="row-action">
-          <ItemUpdate
-            id={props.itemId}
-            updateFunc={(itemId) => console.log(itemId)}
-          />
-        </td>
+
       </Fragment>
       }
-
     </tr>
   );
 

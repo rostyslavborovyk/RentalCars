@@ -1,12 +1,13 @@
 from quart_openapi import Resource
-from quart import make_response, jsonify
+from quart import make_response, jsonify, request
 
 from app.api.utils.reqparsers import ClientReqParser
 from app.api.utils.response_formers import ClientsResponseFormer
 from app.api.utils.serializers import ClientSerializer
 from app.models import Client
 from app.api import bp
-from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages
+from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages, get_items_query_params, \
+    get_items_date_query_params
 
 
 @bp.route("/clients/<string:id_>")
@@ -69,13 +70,21 @@ class ClientsListResource(Resource):
 
 @bp.route("/clients/table", methods=["GET"])
 async def clients_table():
-    db_response = await get_data_for_table(Client.select_for_clients_table)
+    db_response = await get_data_for_table(
+        select_func=Client.select_for_clients_table,
+        **{**get_items_query_params(), **get_items_date_query_params()}
+    )
     if len(db_response) == 0:
         return await make_response(jsonify(ClientsResponseFormer.form([], 0)), 200)
 
     if db_response[0] == "error":
         return await db_response[1]
 
-    num_of_pages = await get_num_of_pages(Client.count_all)
+    params = dict(
+        date_filter=True if request.args.get("from_date") else None,
+        is_clients=True,
+        params=get_items_date_query_params()
+    )
+    num_of_pages = await get_num_of_pages(Client.count_all, **params)
 
     return await make_response(jsonify(ClientsResponseFormer.form(db_response, num_of_pages)), 200)

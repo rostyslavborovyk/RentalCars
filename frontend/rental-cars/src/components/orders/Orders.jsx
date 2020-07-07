@@ -6,7 +6,7 @@ import Pagination from "../../common/components/Pagination";
 import {connect} from "react-redux";
 import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/ordersSelectors";
 import {decrementOrdersPage, incrementOrdersPage, setOrdersDate} from "../../redux/actions/ordersActions";
-import {AddItem} from "./AddItem";
+import {AddItem} from "../../common/components/AddItem";
 
 const Orders = (props) => {
   return (

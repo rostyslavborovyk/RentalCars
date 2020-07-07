@@ -19,7 +19,13 @@ const DateSearch = (state) => {
   const handleBtn = () => {
     const fromDate = new Date(dateFrom)
     const toDate = new Date(dateTo)
-    if (toDate > fromDate) {
+    if (dateTo === "" || dateFrom === "") {
+      swal(
+        "Invalid input!",
+        "Date from and date to should be set",
+        "warning"
+      )
+    } else if (toDate > fromDate) {
       const fromDateFormatted = formatDate(fromDate)
       const toDateFormatted = formatDate(toDate)
       state.dispatch(state.action({
@@ -39,7 +45,7 @@ const DateSearch = (state) => {
   return (
     <Fragment>
       <div>
-        <ul className="dateList">
+        <ul className="searchList">
           <li>
             <div className="dateSearchElem">
               <label htmlFor="dateFrom">Date from:</label>
@@ -65,7 +71,7 @@ const DateSearch = (state) => {
           <li>
             <div className="dateSearchElem">
               <button
-                className="btn dateSearchBtn btn-dark"
+                className="btn searchBtn btn-dark"
                 onClick={handleBtn}
               >Search
               </button>

@@ -13,7 +13,7 @@ const ClientsList = (state) => {
   const [render, setRender] = useState(false);
 
   const getColumnHeaders = () => {
-    return ["first_name", "last_name", "registration_date", "number_of_orders"]
+    return ["First name", "Last name", "Registration date", "Number of orders"]
   }
 
   const getRowDataKeys = () => {

@@ -1,15 +1,30 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
+import {connect} from "react-redux";
 
-function ItemDelete(props) {
+function ItemDelete(state) {
+  const [isDeleted, setIsDeleted] = useState(false)
+
+  const showDeleteBtn = () => (
+    <button
+      className="btn btn-outline-danger btn-sm action-btn"
+      onClick={() => {
+        console.log("Deleting")
+        console.log(state.deleteFunc)
+        state.deleteFunc(state.id)(state.dispatch)
+        setIsDeleted(true)
+      }}
+    >
+      &times;
+    </button>
+  )
+
+  const showDeletedAnimation = () => (
+    <img className="success-delete" src="success_delete_tick.png" alt=""/>
+  )
 
   return (
     <Fragment>
-      <button
-        className="btn btn-outline-danger btn-sm action-btn"
-        onClick={() => props.deleteFunc(props.id)}
-      >
-        &times;
-      </button>
+      {!isDeleted ? showDeleteBtn() : showDeletedAnimation()}
     </Fragment>
   );
 }
@@ -19,4 +34,8 @@ function ItemDelete(props) {
 //   deleteFunc: PropTypes.func,
 // }
 
-export default ItemDelete;
+export default connect(
+  state => ({
+    state: state
+  })
+)(ItemDelete);

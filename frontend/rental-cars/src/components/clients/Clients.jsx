@@ -6,7 +6,7 @@ import Pagination from "../../common/components/Pagination";
 import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/clientsSelectors";
 import {decrementClientsPage, incrementClientsPage, setClientsDate} from "../../redux/actions/clientsActions";
 import {ToolBar} from "../../common/components/ToolBar";
-import {AddItem} from "../orders/AddItem";
+import {AddItem} from "../../common/components/AddItem";
 
 const Clients = (props) => {
   return (

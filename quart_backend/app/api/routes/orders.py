@@ -1,12 +1,13 @@
 from quart_openapi import Resource
-from quart import make_response, jsonify
+from quart import make_response, jsonify, request
 
 from app.api.utils.reqparsers import OrderReqParser
 from app.api.utils.serializers import OrderSerializer
 from app.api.utils.response_formers import OrdersResponseFormer
 from app.models import Order
 from app.api import bp
-from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages
+from app.api.common import get_data_for_table, get_item_from_id, get_num_of_pages, get_items_query_params, \
+    get_items_date_query_params
 
 
 @bp.route("/orders/<string:id_>")
@@ -68,13 +69,20 @@ class OrdersListResource(Resource):
 
 @bp.route("/orders/table", methods=["GET"])
 async def orders_table():
-    db_response = await get_data_for_table(Order.select_for_orders_table)
+    db_response = await get_data_for_table(
+        select_func=Order.select_for_orders_table,
+        **{**get_items_query_params(), **get_items_date_query_params()}
+    )
     if len(db_response) == 0:
         return await make_response(jsonify(OrdersResponseFormer.form([], 0)), 200)
 
     if db_response[0] == "error":
         return await db_response[1]
 
-    num_of_pages = await get_num_of_pages(Order.count_all)
-
+    params = dict(
+        date_filter=True if request.args.get("from_date") else None,
+        is_orders=True,
+        params=get_items_date_query_params()
+    )
+    num_of_pages = await get_num_of_pages(Order.count_all, **params)
     return await make_response(jsonify(OrdersResponseFormer.form(db_response, num_of_pages)), 200)

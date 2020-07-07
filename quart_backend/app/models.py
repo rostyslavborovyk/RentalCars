@@ -24,12 +24,24 @@ class TableMixin:
         return await db.execute(query=delete(cls).where(cls.id == id_))
 
     @classmethod
-    async def count_all(cls):
+    async def count_all(cls, cost_filter=False, date_filter=False, params=None, is_orders=False, is_clients=False):
         """
         Returns number of all records in current table
         """
         # todo replace raw query with sqlalchemy query
-        return await db.fetch_one(query=f"SELECT COUNT(*) FROM {cls.__tablename__}")
+        condition = ""
+        if cost_filter:
+            condition = f"WHERE cost > {params['from_cost']} and cost < {params['by_cost']}"
+
+        if date_filter and is_clients:
+            condition = \
+                f"WHERE registration_date > \'{params['from_date']}\' and registration_date < \'{params['to_date']}\'"
+
+        if date_filter and is_orders:
+            condition = \
+                f"WHERE add_date > \'{params['from_date']}\' and add_date < \'{params['to_date']}\'"
+
+        return await db.fetch_one(query=f"SELECT COUNT(*) FROM {cls.__tablename__} {condition}")
 
 
 class Car(TableMixin, Base):
@@ -47,10 +59,14 @@ class Car(TableMixin, Base):
         return id_
 
     @classmethod
-    async def select_for_cars_table(cls, num_of_items: str, offset: str):
+    async def select_for_cars_table(cls, num_of_items: str, offset: str, from_cost: str, by_cost: str):
+        cost_filter = ""
+        if from_cost and by_cost:
+            cost_filter = f"WHERE ca.cost > {from_cost} and ca.cost < {by_cost} "
         query = "SELECT ca.id, ca.description, ca.cost, COUNT(ord.id) as num_of_orders " \
                 "FROM cars as ca " \
                 "LEFT JOIN orders as ord on ca.id = ord.id_car " \
+                f"{cost_filter}" \
                 "GROUP BY ca.id " \
                 f"LIMIT {num_of_items} " \
                 f"OFFSET {offset}"
