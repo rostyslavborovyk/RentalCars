@@ -13,13 +13,6 @@ export const AddOrder = () => {
   const [carOptions, setCarOptions] = useState([{ value: 'loading', label: 'Cars loading ...' }])
 
   const [successSubmit, setSuccessSubmit] = useState(false);
-  const [notAuthRedirect, setNotAuthRedirect] = useState(false);
-
-  const handleNotAuth = () => {
-    swal("Log in first",
-      "", "warning")
-      .then(() => setNotAuthRedirect(true))
-  }
 
   useEffect(() => {
     const numOfItems = 20;

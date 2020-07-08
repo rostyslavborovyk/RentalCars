@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/ordersSelectors";
 import {decrementOrdersPage, incrementOrdersPage, setOrdersDate} from "../../redux/actions/ordersActions";
 import {AddItem} from "../../common/components/AddItem";
+import auth from "../../authentification/auth";
+import {RentalCostBar} from "../cars/RentalCostBar";
 
 const Orders = (props) => {
   return (
@@ -18,10 +20,12 @@ const Orders = (props) => {
             dateSearchAction={setOrdersDate}
             icon={props.toolbarIc}
           >
+            {auth.isAuthentificated() &&
             <AddItem
               itemName={"order"}
               addLink={"add/order"}
             />
+            }
           </ToolBar>
         </div>
         <div className="row">
