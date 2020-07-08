@@ -12,7 +12,7 @@ RUN poetry config virtualenvs.create false \
 EXPOSE 5000
 
 # running tests
-RUN pytest
+#RUN pytest
 
 #ENTRYPOINT ["quart",  "run",  "--host=0.0.0.0",  "--port=5000"]
 RUN chmod +x prod.sh
