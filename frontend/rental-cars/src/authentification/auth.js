@@ -17,7 +17,7 @@ class Auth {
   }
 
   async login(passportNum, password) {
-    const res =  fetchLogin(passportNum, password)(store.dispatch);
+    const res = fetchLogin(passportNum, password)(store.dispatch);
     if (res === true){
       this.setIsLoggedWithTimeout("true", 5)
     }

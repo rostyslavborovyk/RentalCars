@@ -27,7 +27,6 @@ export const AddCar = () => {
             .then(() => setSuccessSubmit(true))
         }
       }))
-
   }
 
   return (

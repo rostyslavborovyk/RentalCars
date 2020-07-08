@@ -1,5 +1,6 @@
+import jwt
 from quart_openapi import Resource
-from quart import make_response, jsonify, request
+from quart import make_response, jsonify, request, current_app, session
 
 from app.api.utils.reqparsers import OrderReqParser
 from app.api.utils.serializers import OrderSerializer
@@ -59,6 +60,13 @@ class OrdersListResource(Resource):
         """
 
         json_obj = await OrderReqParser.parse_request()
+        # print(json_obj["jwt"])
+        if "id_client" not in json_obj.keys():
+            json_obj.update({
+                "id_client": jwt.decode(json_obj["jwt"].encode("utf-8"), current_app.config["SECRET_KEY"])["client_id"]
+            })
+            json_obj.pop("jwt")
+        print(json_obj)
         try:
             id_ = await Order.insert(json_obj)
         except Exception as e:

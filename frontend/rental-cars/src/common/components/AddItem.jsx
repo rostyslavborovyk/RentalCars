@@ -5,12 +5,13 @@ import {Redirect} from "react-router";
 
 export const AddItem = (props) => {
   const [redirect, setRedirect] = useState(false)
+
   const handleBtn = () => {
     setRedirect(true)
   }
   return (
     <Fragment>
-      {redirect && <Redirect to={"/add/car"}/>}
+      {redirect && <Redirect to={props.addLink}/>}
       <div>
         <ul className="searchList">
           <li>

@@ -19,6 +19,7 @@ const Cars = (props) => {
         >
           <AddItem
             itemName={"car"}
+            addLink={"add/car"}
           />
         </RentalCostBar>
         </div>

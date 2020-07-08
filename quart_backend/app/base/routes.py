@@ -24,6 +24,11 @@ async def test_db() -> Response:
     return client.first_name
 
 
+@bp.route('/get_jwt', methods=["GET"])
+async def cookie_set() -> Response:
+    return await make_response(jsonify({"jwt": request.cookies.get("jwtToken")}))
+
+
 @bp.route("/register", methods=["POST"])
 async def register():
     params = await request.get_json()
@@ -62,7 +67,8 @@ async def login():
 
     token = jwt.encode({
         "passport_number": headers["passport_number"],
-        "exp": datetime.utcnow() + timedelta(minutes=current_app.config["SESSION_DURATION"])
+        "exp": datetime.utcnow() + timedelta(minutes=current_app.config["SESSION_DURATION"]),
+        "client_id": client[0]
     }, current_app.config["SECRET_KEY"]).decode("utf-8")
     response = await make_response(jsonify({"status": "Ok",
                                             "firstName": client[1],

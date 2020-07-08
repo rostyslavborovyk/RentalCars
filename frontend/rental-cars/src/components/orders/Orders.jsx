@@ -20,6 +20,7 @@ const Orders = (props) => {
           >
             <AddItem
               itemName={"order"}
+              addLink={"add/order"}
             />
           </ToolBar>
         </div>
