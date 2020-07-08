@@ -7,3 +7,5 @@ bp = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+
+from app.base import routes

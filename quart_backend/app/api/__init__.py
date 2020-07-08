@@ -1,5 +1,11 @@
-from quart import Blueprint
+from quart_openapi import PintBlueprint
 
-bp = Blueprint('api', __name__)
+bp = PintBlueprint(
+    'api',
+    __name__,
+    url_prefix='/api',
+)
 
-from app.api import routes
+from app.api.routes import cars
+from app.api.routes import clients
+from app.api.routes import orders

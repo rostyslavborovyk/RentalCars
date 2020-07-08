@@ -1,0 +1,224 @@
+@import "~bootstrap/scss/bootstrap";
+
+$base-color: #343a40 ;
+$accent-color: #555;
+$light-color: #848a90;
+$white-color: #fff;
+
+
+.animation-container {
+  padding: 0;
+  margin: 0;
+  animation: fade-appearance 0.4s linear;
+}
+
+.main-container {
+  animation: fade-appearance 0.4s linear;
+
+}
+
+@keyframes fade-appearance {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.item-loader {
+  align-content: center;
+}
+
+
+ul.searchList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+ul.searchList li {
+  float: left;
+  padding: 1em;
+}
+
+.searchBtn {
+  padding: 1em;
+  margin-top: 1em;
+  background: $base-color;
+  color: white;
+}
+
+.nav-name-elem {
+  color: $white-color;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.nav-name-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#pagination-orders li {
+  display: inline;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+#pagination-orders {
+  text-align: center;
+}
+
+.img-container {
+  margin: auto;
+}
+
+#dateSearchContainer {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.update-btn {
+}
+
+td.row-action {
+  width: 100px;
+}
+
+.success-delete {
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  -webkit-animation:spin 1s ease-in-out ;
+  -moz-animation:spin 1s ease-in-out ;
+  animation:spin 1s ease-in-out ;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.add-btn {
+  margin-top: 32%;
+
+}
+.search-btn {
+  margin-top: 40%;
+}
+
+.main-cube {
+  transform-style:preserve-3d;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  animation: pyramid-anim 20s linear infinite;
+}
+
+.main-cube img {
+  position: absolute;
+  opacity: 0.7;
+}
+
+.main-cube div:nth-child(1) {
+  transform: rotateY(0deg) translateZ(100px);
+}
+.main-cube div:nth-child(2) {
+  transform: rotateY(120deg) translateZ(100px);
+}
+.main-cube div:nth-child(3) {
+  transform: rotateY(240deg) translateZ(100px);
+}
+
+.main-wrapper {
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+}
+
+@keyframes pyramid-anim {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.main-top-banner {
+  margin-top: 10%;
+}
+
+.main-orders {
+  margin-top: 10%;
+}
+
+.main-content {
+  text-align: center;
+  border-radius: 10px;
+}
+
+.main-content-header {
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+}
+
+.main-orders-header {
+  background-color: #f08080;
+}
+
+.main-orders-content {
+  background-color: #ffb0b0;
+}
+
+.main-clients-header {
+  background-color: #80ce80;
+}
+
+.main-clients-content {
+  background-color: #b0fea0;
+}
+
+.main-cars-header {
+  background-color: #9db8f6;
+}
+
+.main-cars-content {
+  background-color: #add8e6;
+}
+
+.description-order-card {
+  text-align: center;
+  border-radius: 10px;
+  margin: 15px;
+  background-color: #ffc0c0;
+}
+
+.description-client-card {
+  text-align: center;
+  border-radius: 10px;
+  margin: 15px;
+  background-color: #d0ffc0;
+}
+
+.description-car-card {
+  margin: 15px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #bde8f6;
+}
+
+.main-other {
+  margin-top: 2%;
+}
+
+.main-header-container {
+  margin-top: 5%;
+  margin-left: 5%;
+  text-align: center;
+}
+
+.bottom-container {
+  margin-bottom: 5%;
+}

@@ -130,3 +130,4 @@ dmypy.json
 .pytest_cache
 
 .idea
+node_modules

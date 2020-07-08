@@ -3,9 +3,15 @@ version: "3"
 services:
   backend:
     build: quart_backend/
-    restart: always
+#    restart: always
     ports:
       - 5000:5000
     environment:
       - QUART_APP=asgi.py
       - DATABASE_URL=mysql://srv84190_rost:pbhDcMq3Z@mysql-srv84190.hts.ru:3306/srv84190_cars
+      - TEST_DATABASE_URL=mysql://srv84190_rost:pbhDcMq3Z@mysql-srv84190.hts.ru:3306/srv84190_carstest  
+  frontend:
+    build: frontend/rental-cars
+#    restart: always
+    ports:
+      - 3000:3000
