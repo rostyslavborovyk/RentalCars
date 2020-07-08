@@ -39,7 +39,6 @@ const DateSearch = (state) => {
         "warning"
       )
     }
-
   }
 
   return (

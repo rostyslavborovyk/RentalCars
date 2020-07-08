@@ -1,12 +1,20 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import NavBar from "../navBar/NavBar";
+import {Redirect} from "react-router";
 
 
 export const Main = () => {
+  const [redirectPath, setRedirectPath] = useState("");
+
+  const handleRedirect = (path) => {
+    setRedirectPath(path)
+  }
+
   return (
     <Fragment>
+      {<Redirect to={redirectPath}/>}
       <NavBar/>
-      <div className="container">
+      <div className="container main-container">
         <div className="row main-top-banner">
           <div className="col-1">
           </div>
@@ -37,7 +45,7 @@ export const Main = () => {
         <div className="row">
           <div className="col-1">
           </div>
-          <div className="col-10 main-orders">
+          <div className="col-10 main-orders" onClick={() => handleRedirect("/orders")}>
             <div className="main-orders-header main-content-header">
               <h1>Orders page</h1>
             </div>
@@ -81,7 +89,7 @@ export const Main = () => {
         <div className="row">
           <div className="col-1">
           </div>
-          <div className="col-10 main-other">
+          <div className="col-10 main-other" onClick={() => handleRedirect("/clients")}>
             <div className="main-clients-header main-content-header">
               <h1>Clients page</h1>
             </div>
@@ -124,7 +132,7 @@ export const Main = () => {
         <div className="row">
           <div className="col-1">
           </div>
-          <div className="col-10 main-other bottom-container">
+          <div className="col-10 main-other bottom-container" onClick={() => handleRedirect("/cars")}>
             <div className="main-cars-header main-content-header">
               <h1>Cars page</h1>
             </div>

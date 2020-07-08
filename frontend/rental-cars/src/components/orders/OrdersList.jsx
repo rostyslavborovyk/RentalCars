@@ -6,7 +6,6 @@ import {getCookie} from "../../common/js/cookies";
 import {selectDate, selectOrders, selectPage, selectPending} from "../../redux/storeSelectors/ordersSelectors";
 import {connect} from "react-redux";
 import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
-import {fetchDeleteClient} from "../../redux/fetch/clientsFetch";
 
 let NUM_OF_ITEMS_PER_PAGE = 4;
 

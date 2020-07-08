@@ -13,7 +13,7 @@ const Cars = (props) => {
   return (
     <Fragment>
       <NavBar/>
-      <div className="orders-table-container">
+      <div className="animation-container">
         <div className="row">
           <RentalCostBar
             icon={props.toolbarIc}

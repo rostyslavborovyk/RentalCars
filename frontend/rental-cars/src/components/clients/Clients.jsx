@@ -11,7 +11,7 @@ const Clients = (props) => {
   return (
     <Fragment>
       <NavBar/>
-      <div className="orders-table-container">
+      <div className="animation-container">
         <div className="row">
           <ToolBar
             dateSearchAction={setClientsDate}

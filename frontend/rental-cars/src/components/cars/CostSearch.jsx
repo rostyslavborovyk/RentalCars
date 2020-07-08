@@ -2,7 +2,6 @@ import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import swal from 'sweetalert';
 import {setCarsCost} from "../../redux/actions/carsActions";
-import {AddItem} from "../../common/components/AddItem";
 
 const CostSearch = (state) => {
   const [costFrom, setCostFrom] = useState("");

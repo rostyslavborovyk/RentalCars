@@ -6,9 +6,24 @@ $light-color: #848a90;
 $white-color: #fff;
 
 
-.orders-table-container {
+.animation-container {
   padding: 0;
   margin: 0;
+  animation: fade-appearance 0.4s linear;
+}
+
+.main-container {
+  animation: fade-appearance 0.4s linear;
+
+}
+
+@keyframes fade-appearance {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .item-loader {
@@ -134,7 +149,7 @@ td.row-action {
 }
 
 .main-orders {
-  margin-top: 5%;
+  margin-top: 10%;
 }
 
 .main-content {

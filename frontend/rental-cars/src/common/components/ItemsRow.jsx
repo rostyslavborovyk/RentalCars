@@ -1,7 +1,6 @@
 import React, {Fragment} from "react";
 import ItemDelete from "./ItemDelete";
 import ItemUpdate from "./ItemUpdate";
-import {fetchCars, fetchDeleteCar} from "../../redux/fetch/carsFetch";
 
 export const ItemsRow = (props) => {
   const showHeader = () => {

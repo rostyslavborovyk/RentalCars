@@ -1,4 +1,5 @@
 import {login, logout} from "../actions/loginActions"
+import auth from "../../authentification/auth";
 
 export const fetchLogin = (passportNum, password) => {
   return dispatch => {
@@ -16,8 +17,7 @@ export const fetchLogin = (passportNum, password) => {
 
       }))
       .then(data => {
-        localStorage.setItem("firstName", data.firstName)
-        localStorage.setItem("lastName", data.lastName)
+        auth.setClientDataToLocalStorage(data.firstName, data.lastName)
         dispatch(login())
       })
     // todo return false if request is not successful

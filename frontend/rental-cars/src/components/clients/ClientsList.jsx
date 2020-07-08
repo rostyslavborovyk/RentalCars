@@ -6,7 +6,6 @@ import {selectClients, selectDate, selectPage, selectPending} from "../../redux/
 import {connect} from "react-redux";
 import {fetchClients, fetchDeleteClient} from "../../redux/fetch/clientsFetch";
 import {getNumOfItemsPerPage} from "../../common/js/numOfItemsPerPage";
-import {fetchDeleteCar} from "../../redux/fetch/carsFetch";
 
 // todo make NUM_OF_ITEMS_PER_PAGE dynamical with regard to users page height
 let NUM_OF_ITEMS_PER_PAGE = 4;

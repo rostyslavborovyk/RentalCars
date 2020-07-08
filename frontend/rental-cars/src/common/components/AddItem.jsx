@@ -1,8 +1,6 @@
 import React, {Fragment, useState} from "react";
 import {Redirect} from "react-router";
 
-
-
 export const AddItem = (props) => {
   const [redirect, setRedirect] = useState(false)
 

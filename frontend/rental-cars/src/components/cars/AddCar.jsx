@@ -1,6 +1,5 @@
 import React, {Fragment, useState} from "react";
 import s from "./add_car.module.css";
-import {fetchCarsError} from "../../redux/actions/carsActions";
 import swal from "sweetalert";
 import {Redirect} from "react-router";
 

@@ -8,13 +8,12 @@ import {selectNumOfPages, selectPage} from "../../redux/storeSelectors/ordersSel
 import {decrementOrdersPage, incrementOrdersPage, setOrdersDate} from "../../redux/actions/ordersActions";
 import {AddItem} from "../../common/components/AddItem";
 import auth from "../../authentification/auth";
-import {RentalCostBar} from "../cars/RentalCostBar";
 
 const Orders = (props) => {
   return (
     <Fragment>
       <NavBar/>
-      <div className="orders-table-container">
+      <div className="animation-container">
         <div className="row">
           <ToolBar
             dateSearchAction={setOrdersDate}
